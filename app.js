@@ -6,6 +6,8 @@ var morgan = require('morgan');
 
 var routeAuth = require('./routes/auth');
 var routeUser = require('./routes/user');
+var routeEvent = require('./routes/event');
+var routeProduct = require('./routes/product');
 var db = require('./extras/mongoose')(); // connect to database
 
 
@@ -21,13 +23,27 @@ app.use(morgan('dev')); // use morgan to log requests to the console
 
 
 // Routes
-app.post('/api/authenticate', routeAuth.authenticate);
+app.post('/api/authenticate', routeAuth.authenticate); //routeAuth.isAuthenticated
+app.post('/api/isAuthenticated', routeAuth.isAuthenticated);
 
 app.get('/api/users', routeAuth.isAuthenticated, routeUser.findAll);
 app.get('/api/users/:id', routeAuth.isAuthenticated, routeUser.findById);
 app.post('/api/users', routeAuth.isAuthenticated, routeUser.add);
 app.put('/api/users/:id', routeAuth.isAuthenticated, routeUser.update);
 app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
+
+app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findAll);
+app.get('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.findById);
+app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
+app.put('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.update);
+app.delete('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.delete);
+
+app.get('/api/products/search/:name', routeAuth.isAuthenticated, routeProduct.search);
+app.get('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.findAll);
+app.get('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.findById);
+app.post('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.add);
+app.put('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.update);
+app.delete('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 
 app.use('*', function(req, res, next) {
 	var indexFile = path.resolve(__dirname + '/public/index.html');
