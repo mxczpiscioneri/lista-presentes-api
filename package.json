@@ -7,7 +7,9 @@
     "node": "4.5.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "sass": "node-sass --output-style compressed public/sass/acsset.scss > public/css/acsset.min.css && node-sass --output-style expanded public/sass/acsset.scss > public/css/acsset.css && node-sass --output-style expanded public/sass/style.scss > public/css/style.css",
+    "acsset:build": "npm run sass"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -16,7 +18,11 @@
     "jsonwebtoken": "^7.2.1",
     "lomadee-api": "^0.1.6",
     "mongoose": "^4.6.8",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "multer": "^1.2.1"
+  },
+  "devDependencies": {
+    "node-sass": "^3.10.0"
   },
   "author": "Matheus Piscioneri <mxczpiscioneri@gmail.com> (http://matheuspiscioneri.com.br)",
   "license": "MIT",

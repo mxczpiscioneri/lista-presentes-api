@@ -5,6 +5,10 @@ $z-index-md: $z-index-lg - 2;
 $z-index-sm: $z-index-md - 3;
 $z-index-xs: $z-index-sm - 4;
 $z-index-xxs: $z-index-xs - 5;
+
+
+@import 'variables';
+
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -55,4 +59,12 @@ body {
 
 .z-index-xxs {
   z-index: $z-index-xxs;
+}
+
+.alert.success {
+  background-color: $color-green !important;
+}
+
+.alert.error {
+  background-color: $color-light !important;
 }

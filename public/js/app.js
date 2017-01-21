@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngResource']);
+var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload']);
 
 var API_ENDPOINT = "http://localhost:8080/api";
 var LOCAL_TOKEN_KEY = "TokenListaPresentes";

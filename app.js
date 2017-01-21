@@ -15,7 +15,7 @@ var db = require('./extras/mongoose')(); // connect to database
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({
-	extended: true
+  extended: true
 }));
 app.use(bodyParser.json());
 
@@ -38,6 +38,7 @@ app.get('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.fin
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
 app.put('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.update);
 app.delete('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.delete);
+app.post('/api/users/:user/events/:id/upload', routeAuth.isAuthenticated, routeEvent.upload);
 
 app.get('/api/products/search/:name', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.findAll);
@@ -47,12 +48,12 @@ app.put('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated
 app.delete('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 
 app.use('*', function(req, res, next) {
-	var indexFile = path.resolve(__dirname + '/public/index.html');
-	res.sendFile(indexFile);
+  var indexFile = path.resolve(__dirname + '/public/index.html');
+  res.sendFile(indexFile);
 });
 
 
 // Server
 app.listen(process.env.PORT || 8080, function() {
-	console.log('App listening on port 8080!');
+  console.log('App listening on port 8080!');
 });

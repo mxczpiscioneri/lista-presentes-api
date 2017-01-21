@@ -50,3 +50,11 @@ body {
   z-index: -9;
 }
 
+.alert.success {
+  background-color: #2ecc71 !important;
+}
+
+.alert.error {
+  background-color: #FFBEB9 !important;
+}
+

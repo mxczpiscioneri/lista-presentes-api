@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Types.ObjectId;
+var multer = require('multer');
 var User = require('../model/user');
 var EventSchema = require('../model/event');
 
@@ -29,7 +30,6 @@ exports.findById = function(req, res) {
     }
   });
 }
-
 
 exports.findAll = function(req, res) {
   // find user and event
@@ -127,7 +127,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
   User.findOneAndUpdate({ _id: new ObjectId(req.params.user) }, { $pull: { events: { _id: new ObjectId(req.params.id) } } }, req.body, function(err, user) {
-  
+
     if (err) {
       res.status(500);
       res.json({
@@ -142,3 +142,39 @@ exports.delete = function(req, res) {
     }
   });
 }
+
+exports.upload = function(req, res) {
+  //multers disk storage settings
+  var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, __dirname + '/../public/uploads/');
+    },
+    filename: function(req, file, cb) {
+      var datetimestamp = Date.now();
+      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+    }
+  });
+
+  //multer settings
+  var upload = multer({
+    storage: storage
+  }).single('file');
+
+  // Upload
+  upload(req, res, function(err) {
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: err
+      });
+      return;
+    }
+    res.status(200);
+    res.json({
+      success: true,
+      data: req.file.filename
+    });
+  });
+}
+

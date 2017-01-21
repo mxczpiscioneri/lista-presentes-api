@@ -1,0 +1,75 @@
+<!-- header -->
+<ng-include src="'views/inc_header.html'"></ng-include>
+<!-- main -->
+<div class="grid-container margin-top-xl">
+  <div class="grid-row">
+    <!-- alert message -->
+    <div class="grid-xs-12">
+      <div class="alert text-white text-center margin-bottom-lg padding-lg" ng-class="message.type" ng-show="message.status" role="alert">
+        {{message.text}}
+        <span class="pull-right pointer" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></span>
+      </div>
+    </div>
+    <!-- menu -->
+    <ng-include src="'views/inc_sidebar.html'"></ng-include>
+    <!-- content -->
+    <div class="grid-xs-9">
+      <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
+        <div class="grid-row">
+          <div class="grid-xs-12">
+            <h2 class="text-lg text-default clear-margin">Meu evento</h2>
+          </div>
+        </div>
+        <form name="event.form">
+          <div class="grid-row margin-top-xl margin-bottom-xl">
+            <div class="grid-xs-12">
+              <label class="text-sm text-default">Nome:</label>
+              <input id="name" class="field text-field text-field-lg" type="text" ng-model="event.name" required>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">Data:</label>
+              <input id="abv" class="field text-field text-field-lg" type="text" ng-model="event.date" required>
+            </div>
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">Hora:</label>
+              <input id="ibu" class="field text-field text-field-lg" type="text" ng-model="event.time" required>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-12">
+              <label class="text-sm text-default">Local:</label>
+              <input id="details" class="field text-field text-field-lg" type="text" ng-model="event.place">
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">Cidade:</label>
+              <input id="abv" class="field text-field text-field-lg" type="text" ng-model="event.city" required>
+            </div>
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">Estado:</label>
+              <input id="ibu" class="field text-field text-field-lg" type="text" ng-model="event.state" required>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-12">
+              <label class="text-sm text-default block margin-bottom-xs">Imagem de capa:</label>
+              <img ng-show="event.image.indexOf('file-') != -1" ngf-thumbnail="'/uploads/' + event.image || '/img/capa-default.jpg'" class="img">
+              <input type="file" class="block" ngf-select ng-model="event.image" name="image" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-Change="fileChanged()">
+              <i ng-show="event.form.image.$error.maxSize">Arquivo muito grande {{event.image.size / 1000000|number:1}}MB: max 5MB</i>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-2 grid-xs-offset-10">
+              <button class="btn-lg btn-primary" ng-click="editEvent()">Salvar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<ng-include src="'views/inc_footer.html'"></ng-include>
