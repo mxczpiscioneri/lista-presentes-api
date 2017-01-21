@@ -1,0 +1,58 @@
+//Z-index
+$z-index-xl: 6;
+$z-index-lg: $z-index-xl - 1;
+$z-index-md: $z-index-lg - 2;
+$z-index-sm: $z-index-md - 3;
+$z-index-xs: $z-index-sm - 4;
+$z-index-xxs: $z-index-xs - 5;
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.clear-decoration {
+  text-decoration: none;
+}
+
+.field {
+  outline: none;
+}
+
+.shadow-banner {
+  background: linear-gradient(to top, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
+}
+
+.vaquinha {
+  background: url('../img/vaquinha1.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.z-index-xl {
+  z-index: $z-index-xl;
+}
+
+.z-index-lg {
+  z-index: $z-index-lg;
+}
+
+.z-index-md {
+  z-index: $z-index-md;
+}
+
+.z-index-sm {
+  z-index: $z-index-sm;
+}
+
+.z-index-xs {
+  z-index: $z-index-xs;
+}
+
+.z-index-xxs {
+  z-index: $z-index-xxs;
+}
