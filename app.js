@@ -23,8 +23,9 @@ app.use(morgan('dev')); // use morgan to log requests to the console
 
 
 // Routes
-app.post('/api/authenticate', routeAuth.authenticate); //routeAuth.isAuthenticated
+app.post('/api/authenticate', routeAuth.authenticate);
 app.post('/api/isAuthenticated', routeAuth.isAuthenticated);
+app.post('/api/refreshAuthentication', routeAuth.refreshAuthentication);
 
 app.get('/api/users', routeAuth.isAuthenticated, routeUser.findAll);
 app.get('/api/users/:id', routeAuth.isAuthenticated, routeUser.findById);

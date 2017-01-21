@@ -10,6 +10,7 @@ exports.isAuthenticated = function(req, res, next) {
     // verifies secret and checks exp
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
       if (err) {
+        res.status(401);
         return res.json({
           success: false,
           message: 'Failed to authenticate token.'
@@ -21,7 +22,7 @@ exports.isAuthenticated = function(req, res, next) {
       }
     });
   } else {
-    res.status(403)
+    res.status(401);
     return res.send({
       success: false,
       message: 'No token provided.'
@@ -36,6 +37,7 @@ exports.authenticate = function(req, res) {
   }, function(err, user) {
     if (err) throw err;
     if (!user) {
+      res.status(401);
       res.json({
         success: false,
         message: 'Authentication failed. User not found.'
@@ -43,6 +45,7 @@ exports.authenticate = function(req, res) {
     } else if (user) {
       // check if password matches
       if (user.password != req.body.password) {
+        res.status(401);
         res.json({
           success: false,
           message: 'Authentication failed. Wrong password.'
@@ -54,9 +57,51 @@ exports.authenticate = function(req, res) {
         });
         res.json({
           success: true,
-          token: token
+          token: token,
+          user: user._id
         });
       }
     }
   });
+}
+
+exports.refreshAuthentication = function(req, res) {
+  // check header or url parameters or post parameters for token
+  var originalDecoded = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (originalDecoded) {
+    // verifies secret and checks exp
+    jwt.verify(originalDecoded, process.env.SECRET, function(err, decoded) {
+      if (err) {
+        res.status(401);
+        return res.json({
+          success: false,
+          message: 'Failed to authenticate token.'
+        });
+      } else {
+        // find the user
+        User.findOne({
+          _id: req.body._id
+        }, function(err, user) {
+          if (user) {
+            // create a token
+            var token = jwt.sign(user, process.env.SECRET, {
+              expiresIn: 60 * 60 // expires in 1 hour
+            });
+            res.json({
+              success: true,
+              token: token,
+              user: user._id
+            });
+          }
+        });
+      }
+    });
+  } else {
+    res.status(401);
+    return res.send({
+      success: false,
+      message: 'Failed to authenticate token.'
+    });
+  }
 }
