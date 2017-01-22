@@ -3,6 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload']);
 var API_ENDPOINT = "http://localhost:8080/api";
 var LOCAL_TOKEN_KEY = "TokenListaPresentes";
 var LOCAL_ID_USER = "IdUserListaPresentes";
+var LOCAL_ID_EVENT = "IdEventListaPresentes"
 
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 

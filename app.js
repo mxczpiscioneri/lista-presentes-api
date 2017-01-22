@@ -40,7 +40,7 @@ app.put('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.upd
 app.delete('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.delete);
 app.post('/api/users/:user/events/:id/upload', routeAuth.isAuthenticated, routeEvent.upload);
 
-app.get('/api/products/search/:name', routeAuth.isAuthenticated, routeProduct.search);
+app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.findAll);
 app.get('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.findById);
 app.post('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.add);

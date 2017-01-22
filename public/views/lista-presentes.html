@@ -1,0 +1,78 @@
+<!-- header -->
+<ng-include src="'views/inc_header.html'"></ng-include>
+<!-- main -->
+<div class="grid-container margin-top-xl">
+  <div class="grid-row">
+    <!-- alert message -->
+    <div class="grid-xs-12">
+      <div class="alert text-white text-center margin-bottom-lg padding-lg" ng-class="message.type" ng-show="message.status" role="alert">
+        {{message.text}}
+        <span class="pull-right pointer" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></span>
+      </div>
+    </div>
+    <!-- menu -->
+    <ng-include src="'views/inc_sidebar.html'"></ng-include>
+    <!-- content -->
+    <div class="grid-md-9 grid-xs-12">
+      <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
+        <div class="grid-row">
+          <div class="grid-xs-12">
+            <h2 class="text-lg text-default clear-margin">Gerencie sua lista de presentes</h2>
+          </div>
+        </div>
+        <div class="grid-row margin-top-xl">
+          <form>
+            <div class="grid-sm-3 grid-xs-12">
+              <label for="filter-price" class="text-xs text-default margin-bottom-xs">Ordenar por:</label>
+              <select ng-model="sort" ng-change="sorting()" class="field text-field-md select">
+                <option ng-selected="sort == rate" value="rate">Mais populares</option>
+                <option ng-selected="sort == price" value="price">Menor preço</option>
+                <option ng-selected="sort == dprice" value="dprice">Maior preço</option>
+              </select>
+            </div>
+            <div class="grid-sm-9 grid-xs-12">
+              <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
+              <input ng-model="search" ng-model-options='{ debounce: 400 }' type="text" id="search" name="search" class="field text-field-md" placeholder="Digite o nome do produto...">
+            </div>
+          </form>
+        </div>
+        <div class="grid-row margin-top-xl">
+          <ul class="list list-horizontal">
+            <li ng-repeat="item in products" class="list-item grid-lg-3 grid-sm-4 grid-xs-6 margin-bottom-lg">
+              <div class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
+                <div class="align-center margin-bottom-sm">
+                  <a href="{{item.product.links[0].link.url}}" target="_blank">
+                    <img class="img block" ng-src="{{item.product.thumbnail.url ? item.product.thumbnail.url : '../img/unavailable.jpg'}}" alt="{{item.product.productname}}" title="{{item.product.productname}}">
+                  </a>
+                </div>
+                <a class="text-xs text-default block name-product" title="{{item.product.productname}}" href="{{item.product.links[0].link.url}}" target="_blank">{{item.product.productname}}</a>
+                <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-md text-primary bold">R$ {{item.product.pricemin}}</span></p>
+                <p class="text-xs text-default clear-margin">Até: <span class="text-sm text-primary bold">R$ {{item.product.pricemax}}</span></p>
+                <button ng-hide="item.product.added" ng-click="add(item.product)" class="btn-sm btn-primary margin-top-sm">+ ADICIONAR</button>
+                <button ng-show="item.product.added" ng-click="remove(item.product)" class="btn-sm btn-default margin-top-sm">- REMOVER</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- pagination -->
+        <div ng-show="totalPages.length > 1" class="grid-row">
+          <div class="grid-xs-12 margin-top-sm margin-bottom-xl">
+            <ul class="list list-horizontal align-center">
+              <li class="list-item margin-xs">
+                <a ng-click="pagination(page - 1)" ng-class="page == 1 ? 'cursor-disabled' : ''" class="text-xs text-light clear-decoration block bd-sm bd-solid bd-light bd-radius-md pointer padding-top-md padding-bottom-md padding-left-xl padding-right-xl">&#10094;</a>
+              </li>
+              <li ng-repeat="item in totalPages" class="list-item margin-xs">
+                <a ng-click="pagination(item)" ng-class="page == item ? 'bg-light text-white' : 'text-light'" class="text-xs clear-decoration block bd-sm bd-solid bd-light bd-radius-md pointer padding-top-md padding-bottom-md padding-left-lg padding-right-lg">{{item}}</a>
+              </li>
+              <li class="list-item margin-xs">
+                <a ng-click="pagination(page + 1)" ng-class="page == totalPages.length ? 'cursor-disabled' : ''" class="text-xs text-light clear-decoration block bd-sm bd-solid bd-light bd-radius-md pointer padding-top-md padding-bottom-md padding-left-xl padding-right-xl">&#10095;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<ng-include src="'views/inc_footer.html'"></ng-include>

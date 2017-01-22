@@ -81,3 +81,26 @@ app.factory('EventService', function($http, Upload) {
     }
   }
 });
+
+app.factory('ProductService', function($http) {
+  return {
+    searchBuscape: function(search, page, sort) {
+      return $http.get(API_ENDPOINT + '/products/search/' + search + '/' + page + '/' + sort);
+    },
+    findAll: function(userId, eventId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/');
+    },
+    findById: function(userId, eventId, productId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId);
+    },
+    add: function(userId, eventId, product) {
+      return $http.post(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/', product);
+    },
+    update: function(userId, eventId, productId) {
+      return $http.put(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId, product);
+    },
+    delete: function(userId, eventId, productId) {
+      return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId);
+    }
+  }
+});

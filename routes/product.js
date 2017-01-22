@@ -10,7 +10,9 @@ exports.search = function(req, res) {
 
   lomadee.product({
     keyword: req.params.name,
-    results: 20
+    page: req.params.page,
+    sort: req.params.sort,
+    results: 100
   }, (err, results) => {
     res.json(results);
   });
