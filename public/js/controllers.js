@@ -62,6 +62,31 @@ app.controller('LogoutCtrl', function($location, $window) {
   $location.path('/login');
 });
 
+app.controller('DashboardCtrl', function($scope, $window, UserService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+
+  UserService.findById(userId)
+    .then(function(result) {
+      if (result.data.success) {
+        UserService.set(result.data.data);
+        $window.localStorage.setItem(LOCAL_ID_EVENT, result.data.data.events[0]._id);
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
+});
+
 app.controller('EventCtrl', function($scope, $window, UserService, EventService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
@@ -313,4 +338,53 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
   $scope.$watch('search', function() {
     $scope.getProducts(1, $scope.sort);
   });
+});
+
+app.controller('MyListCtrl', function($scope, $window, ProductService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var eventId = $window.localStorage.getItem(LOCAL_ID_EVENT);
+
+  ProductService.findAll(userId, eventId)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.myList = result.data.data;
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
+
+  $scope.remove = function(productId) {
+
+    ProductService.delete(userId, eventId, productId)
+      .then(function(data) {
+        if (data.data.success) {
+          $scope.myList = $scope.myList.filter(function(el) {
+            return el._id !== productId;
+          });
+        } else {
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': data.data.message
+          };
+        }
+      }, function(status, data) {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': 'Erro!'
+        };
+      });
+  }
 });
