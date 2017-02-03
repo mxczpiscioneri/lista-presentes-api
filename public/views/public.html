@@ -1,0 +1,96 @@
+<!-- header -->
+<header id="header" class="grid-container-fluid bg-primary box-shadow">
+  <div class="grid-row">
+    <div class="grid-xs-12">
+      <h1 class="text-lg align-center">
+          <a href="/" class="text-white clear-decoration"><img src="/img/icon-lista-de-presentes.png" class="align-top margin-right-sm" alt="LISTA DE PRESENTES">LISTA DE PRESENTES</a>
+        </h1>
+    </div>
+  </div>
+</header>
+<!-- banner -->
+<div id="banner" class="grid-container-fluid margin-top-xs">
+  <div class="grid-container">
+    <div class="grid-row">
+      <div class="grid-xs-12">
+        <img src="/uploads/{{event.image}}" class="img block" alt="Matheus e Marcela">
+        <div class="shadow-banner absolute position-bottom position-left position-right padding-sm margin-left-sm margin-right-sm">
+          <h1 class="text-xl text-white align-center clear-margin padding-top-xl">{{event.name}} &hearts; (28/10/2017)</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- vaquinha -->
+<div class="grid-container-fluid margin-top-xl vaquinha padding-xl">
+  <div class="grid-row">
+    <div class="grid-xs-12">
+      <h2 class="text-lg text-white align-center margin-top-lg">Quer contribui para a vaquinha dos noivos?</h2>
+    </div>
+  </div>
+  <div class="grid-row">
+    <div class="grid-xs-2 grid-xs-offset-5">
+      <a href="#" class="clear-decoration">
+        <buttom type="buttom" class="btn-lg text-white bd-white bd-sm bd-solid">$ AJUDAR $</buttom>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- toolbar -->
+<div class="grid-container margin-top-xl">
+  <div class="grid-row">
+    <form action="" method="post">
+      <div class="grid-xs-3">
+        <label for="filter-price" class="text-xs text-default margin-bottom-xs">Ordenar por:</label>
+        <select name="order" id="order" class="field text-field-lg select">
+          <option value="0">Mais popular</option>
+          <option value="0">Ainda não comprados</option>
+          <option value="1">Menor preço</option>
+          <option value="2">Maior preço</option>
+          <option value="3">A - Z</option>
+          <option value="4">Z - A</option>
+        </select>
+      </div>
+      <div class="grid-xs-6 grid-xs-offset-3">
+        <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
+        <input type="text" id="search" name="search" class="field text-field-lg" placeholder="Digite o nome do produto...">
+      </div>
+    </form>
+    <div class="grid-xs-12">
+      <hr class="bd-bottom-xs bd-bottom-solid bd-lightgray margin-top-xl">
+    </div>
+  </div>
+  <div class="grid-row">
+    <div class="grid-xs-12">
+      <h2 class="text-md text-default">123 produtos encontrados</h2>
+    </div>
+  </div>
+</div>
+<!-- content -->
+<div class="grid-container margin-top-sm">
+  <!-- products -->
+  <div class="grid-row">
+    <ul class="list list-horizontal">
+      <li class="list-item grid-xs-3 margin-bottom-lg">
+        <div class="bg-white bd-radius-md padding-lg box-shadow">
+          <div class="align-center">
+            <img title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" class="img block" alt="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" src="http://thumbs.buscape.com.br/geladeira-refrigerador/refrigerador-consul-frost-free-crm43nk-386-litros-inox_200x200-PU97e2c_1.jpg">
+          </div>
+          <a class="text-sm text-default block" title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" href="http://www.buscape.com.br/refrigerador-consul-frost-free-crm43nk-386-litros-inox">Refrigerador Consul Frost Free CRM43NK 386 Litros Inox</a>
+          <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-lg text-primary bold">R$ 1.899,05</span></p>
+          <p class="text-xs text-default clear-margin">Até: <span class="text-md text-primary bold">R$ 2.399,99</span></p>
+          <p class="text-xs text-darkgray align-center margin-bottom-xs">0 de 1 produto comprados</p>
+          <a class="block clear-decoration" title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" href="http://www.buscape.com.br/refrigerador-consul-frost-free-crm43nk-386-litros-inox" onclick="BoughtAlert()">
+            <button class="btn-lg btn-primary">COMPRAR</button>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- footer -->
+<footer class="grid-container-fluid padding-top-xl padding-bottom-lg bg-secondary">
+  <div class="grid-xs-12">
+    <p class="text-xxs text-white align-center">Created with <span class="text-xl text-primary align-middle">&hearts;</span> by <a href="http://matheuspiscioneri.com.br" class="text-white clear-decoration" target="_blank">Matheus Piscioneri</a></p>
+  </div>
+</footer>

@@ -4,11 +4,14 @@ dotenv.load();
 
 module.exports = function() {
 
-  mongoose.connect(process.env.MONGO_URI, function (err) {
-    if (err) {
-      return console.log('Cannot connect to database', err);
-    }
-    return console.log('Database connected.');
+  mongoose.connect(process.env.MONGO_URI);
+  var db = mongoose.connection;
+
+  db.on('error', function(err) {
+    console.error('MongoDB connection error:', err);
+  });
+  db.once('open', function callback() {
+    console.info('MongoDB connection is established');
   });
 
 };

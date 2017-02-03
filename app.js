@@ -33,6 +33,7 @@ app.post('/api/users', routeAuth.isAuthenticated, routeUser.add);
 app.put('/api/users/:id', routeAuth.isAuthenticated, routeUser.update);
 app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
 
+app.get('/api/events/:slug', routeEvent.findByName);
 app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findAll);
 app.get('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.findById);
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
@@ -41,11 +42,9 @@ app.delete('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.
 app.post('/api/users/:user/events/:id/upload', routeAuth.isAuthenticated, routeEvent.upload);
 
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
-app.get('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.findAll);
-app.get('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.findById);
-app.post('/api/users/:user/events/:event/products', routeAuth.isAuthenticated, routeProduct.add);
-app.put('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.update);
-app.delete('/api/users/:user/events/:event/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
+app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);
+app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
+app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 
 app.use('*', function(req, res, next) {
   var indexFile = path.resolve(__dirname + '/public/index.html');

@@ -67,6 +67,9 @@ app.factory('EventService', function($http, Upload) {
     findById: function(userId, eventId) {
       return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId);
     },
+    findByName: function(slug) {
+      return $http.get(API_ENDPOINT + '/events/' + slug);
+    },
     add: function(userId, event) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/events/', event);
     },
@@ -77,7 +80,7 @@ app.factory('EventService', function($http, Upload) {
       return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/' + eventId);
     },
     upload: function(userId, eventId, fileUpload) {
-      return Upload.upload({ url: API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/upload/', data: { file: fileUpload } });
+      return Upload.upload({ url: API_ENDPOINT + '/users/' + userId + '/upload/', data: { file: fileUpload } });
     }
   }
 });
@@ -87,20 +90,20 @@ app.factory('ProductService', function($http) {
     searchBuscape: function(search, page, sort) {
       return $http.get(API_ENDPOINT + '/products/search/' + search + '/' + page + '/' + sort);
     },
-    findAll: function(userId, eventId) {
-      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/');
+    findAll: function(userId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/products/');
     },
-    findById: function(userId, eventId, productId) {
-      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId);
+    findById: function(userId, productId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/products/' + productId);
     },
-    add: function(userId, eventId, product) {
-      return $http.post(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/', product);
+    add: function(userId, product) {
+      return $http.post(API_ENDPOINT + '/users/' + userId + '/products/', product);
     },
-    update: function(userId, eventId, productId) {
-      return $http.put(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId, product);
+    update: function(userId, productId) {
+      return $http.put(API_ENDPOINT + '/users/' + userId + '/products/' + productId, product);
     },
-    delete: function(userId, eventId, productId) {
-      return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/' + eventId + '/products/' + productId);
+    delete: function(userId, productId) {
+      return $http.delete(API_ENDPOINT + '/users/' + userId + '/products/' + productId);
     }
   }
 });

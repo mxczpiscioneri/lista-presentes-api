@@ -8,7 +8,7 @@ var LOCAL_ID_EVENT = "IdEventListaPresentes"
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 
   $routeProvider
-    .when('/', {
+    .when('/dashboard', {
       pageTitle: 'Dashboard',
       menuActive: 'dashboard',
       templateUrl: '/views/dashboard.html',
@@ -45,6 +45,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     .when('/logout', {
       templateUrl: '/views/login.html',
       controller: 'LogoutCtrl'
+    })
+    .when('/:slug', {
+      templateUrl: '/views/public.html',
+      controller: 'PublicCtrl'
     })
     .otherwise({
       redirectTo: '/'

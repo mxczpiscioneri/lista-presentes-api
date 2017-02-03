@@ -4,6 +4,33 @@ var multer = require('multer');
 var User = require('../model/user');
 var EventSchema = require('../model/event');
 
+exports.findByName = function(req, res) {
+  // find event
+  User.findOne({ 'events.slug': req.params.slug }, { 'events.$': 1 }, function(err, event) {
+
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      if (event) {
+        res.json({
+          success: true,
+          data: event
+        });
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "Event " + req.params.slug + " not found"
+        });
+      }
+    }
+  });
+}
+
 exports.findById = function(req, res) {
   // find user and event
   User.findOne({ _id: new ObjectId(req.params.user) }, { 'events': { $elemMatch: { _id: new ObjectId(req.params.id) } } }, function(err, user) {
@@ -79,6 +106,7 @@ exports.add = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
+      // add event in user
       user.events.push(EventNew);
 
       // save event
@@ -177,4 +205,3 @@ exports.upload = function(req, res) {
     });
   });
 }
-

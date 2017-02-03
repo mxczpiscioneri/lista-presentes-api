@@ -70,7 +70,6 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
     .then(function(result) {
       if (result.data.success) {
         UserService.set(result.data.data);
-        $window.localStorage.setItem(LOCAL_ID_EVENT, result.data.data.events[0]._id);
       } else {
         $scope.message = {
           'status': true,
@@ -90,7 +89,6 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
 app.controller('EventCtrl', function($scope, $window, UserService, EventService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
-  var eventId = $window.localStorage.getItem(LOCAL_ID_EVENT);
   var fileChanged = false;
 
   EventService.findById(userId, eventId)
@@ -184,13 +182,12 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
 app.controller('PresentsCtrl', function($scope, $window, ProductService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
-  var eventId = $window.localStorage.getItem(LOCAL_ID_EVENT);
   $scope.page = 1;
   $scope.sort = 'rate';
 
-  ProductService.findAll(userId, eventId)
+  ProductService.findAll(userId)
     .then(function(result) {
-      if (result.status == 200) {
+      if (result.data.success) {
         $scope.myList = result.data.data;
         $scope.getProducts(1, $scope.sort);
       } else {
@@ -217,11 +214,13 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
         if (data.status == 200) {
 
           // Check if Buscape product has already been added
-          for (var i = 0; i < data.data.product.length; i++) {
-            for (var j = 0; j < $scope.myList.length; j++) {
-              if (data.data.product[i].product.id == $scope.myList[j].buscapeId) {
-                data.data.product[i].product.added = true;
-                data.data.product[i].product._id = $scope.myList[j]._id;
+          if (data.data.product.length > 0) {
+            for (var i = 0; i < data.data.product.length; i++) {
+              for (var j = 0; j < $scope.myList.length; j++) {
+                if (data.data.product[i].product.id == $scope.myList[j].buscapeId) {
+                  data.data.product[i].product.added = true;
+                  data.data.product[i].product._id = $scope.myList[j]._id;
+                }
               }
             }
           }
@@ -252,16 +251,16 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
   $scope.add = function(product) {
 
     var ProductNew = {
-      id: product.id,
+      buscapeId: product.id,
       categoryid: product.categoryid,
-      productname: product.productname,
+      name: product.productname,
       pricemin: product.pricemin,
       pricemax: product.pricemax,
       link: product.links[0].link.url,
       image: product.thumbnail.url,
     };
 
-    ProductService.add(userId, eventId, ProductNew)
+    ProductService.add(userId, ProductNew)
       .then(function(result) {
         if (result.data.success) {
           $scope.message = {
@@ -272,7 +271,7 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
           for (var i = 0; i < $scope.products.length; i++) {
             if ($scope.products[i].product.id == product.id) {
               $scope.products[i].product.added = true;
-              $scope.products[i].product._id = result.data.data._id;
+              $scope.products[i].product._id = result.data.productId;
               break;
             }
           }
@@ -292,17 +291,17 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
       });
   }
 
-  $scope.remove = function(product) {
-    ProductService.delete(userId, eventId, product._id)
-      .then(function(data) {
-        if (data.data.success) {
+  $scope.remove = function(productId) {
+    ProductService.delete(userId, productId)
+      .then(function(result) {
+        if (result.data.success) {
           $scope.message = {
             'status': true,
             'type': 'success',
             'text': 'Produto removido com sucesso!'
           };
           for (var i = 0; i < $scope.products.length; i++) {
-            if ($scope.products[i].product.id == product.id) {
+            if ($scope.products[i].product._id == productId) {
               $scope.products[i].product.added = false;
               break;
             }
@@ -343,9 +342,8 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
 app.controller('MyListCtrl', function($scope, $window, ProductService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
-  var eventId = $window.localStorage.getItem(LOCAL_ID_EVENT);
 
-  ProductService.findAll(userId, eventId)
+  ProductService.findAll(userId)
     .then(function(result) {
       if (result.data.success) {
         $scope.myList = result.data.data;
@@ -365,10 +363,14 @@ app.controller('MyListCtrl', function($scope, $window, ProductService) {
     });
 
   $scope.remove = function(productId) {
-
-    ProductService.delete(userId, eventId, productId)
+    ProductService.delete(userId, productId)
       .then(function(data) {
         if (data.data.success) {
+          $scope.message = {
+            'status': true,
+            'type': 'success',
+            'text': 'Produto removido com sucesso!'
+          };
           $scope.myList = $scope.myList.filter(function(el) {
             return el._id !== productId;
           });
@@ -387,4 +389,26 @@ app.controller('MyListCtrl', function($scope, $window, ProductService) {
         };
       });
   }
+});
+
+app.controller('PublicCtrl', function($scope, $routeParams, EventService, ProductService) {
+  EventService.findByName($routeParams.slug)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.event = result.data.data.events[0];
+        console.log(result.data.data.events[0]);
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
 });

@@ -3,6 +3,10 @@ var ProductSchema = require('./product');
 
 var EventSchema = new mongoose.Schema({
   name: String,
+  slug: {
+    type: String,
+    unique: true
+  },
   date: Date,
   time: String,
   place: String,
