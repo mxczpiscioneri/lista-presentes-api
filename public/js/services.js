@@ -96,6 +96,9 @@ app.factory('ProductService', function($http) {
     findById: function(userId, productId) {
       return $http.get(API_ENDPOINT + '/users/' + userId + '/products/' + productId);
     },
+    buy: function(userId, productId, bought) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/products/' + productId + '/buy/' + bought);
+    },
     add: function(userId, product) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/products/', product);
     },

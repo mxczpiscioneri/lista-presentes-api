@@ -53,7 +53,7 @@
       </div>
       <div class="grid-xs-6 grid-xs-offset-3">
         <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
-        <input type="text" id="search" name="search" class="field text-field-lg" placeholder="Digite o nome do produto...">
+        <input type="text" id="search" ng-model="search" class="field text-field-lg" placeholder="Digite o nome do produto...">
       </div>
     </form>
     <div class="grid-xs-12">
@@ -62,7 +62,7 @@
   </div>
   <div class="grid-row">
     <div class="grid-xs-12">
-      <h2 class="text-md text-default">123 produtos encontrados</h2>
+      <h2 class="text-md text-default">{{event.products.length}} produtos encontrados</h2>
     </div>
   </div>
 </div>
@@ -71,18 +71,16 @@
   <!-- products -->
   <div class="grid-row">
     <ul class="list list-horizontal">
-      <li class="list-item grid-xs-3 margin-bottom-lg">
+      <li ng-repeat="product in event.products | filter: search" class="list-item grid-xs-3 margin-bottom-lg">
         <div class="bg-white bd-radius-md padding-lg box-shadow">
           <div class="align-center">
-            <img title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" class="img block" alt="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" src="http://thumbs.buscape.com.br/geladeira-refrigerador/refrigerador-consul-frost-free-crm43nk-386-litros-inox_200x200-PU97e2c_1.jpg">
+            <img title="{{product.name}}" class="img margin-bottom-sm" alt="{{product.name}}" src="{{product.image}}">
           </div>
-          <a class="text-sm text-default block" title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" href="http://www.buscape.com.br/refrigerador-consul-frost-free-crm43nk-386-litros-inox">Refrigerador Consul Frost Free CRM43NK 386 Litros Inox</a>
-          <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-lg text-primary bold">R$ 1.899,05</span></p>
-          <p class="text-xs text-default clear-margin">Até: <span class="text-md text-primary bold">R$ 2.399,99</span></p>
-          <p class="text-xs text-darkgray align-center margin-bottom-xs">0 de 1 produto comprados</p>
-          <a class="block clear-decoration" title="Refrigerador Consul Frost Free CRM43NK 386 Litros Inox" href="http://www.buscape.com.br/refrigerador-consul-frost-free-crm43nk-386-litros-inox" onclick="BoughtAlert()">
-            <button class="btn-lg btn-primary">COMPRAR</button>
-          </a>
+          <a class="text-sm text-default block" title="{{product.name}}" href="{{product.link}}">{{product.name}}</a>
+          <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-lg text-primary bold">R$ {{product.pricemin}}</span></p>
+          <p class="text-xs text-default clear-margin">Até: <span class="text-md text-primary bold">R$ {{product.pricemax}}</span></p>
+          <p class="text-xs text-darkgray align-center margin-bottom-xs">{{product.bought || 0}} comprados</p>
+          <button ng-click="buy(product)" class="btn-lg btn-primary">COMPRAR</button>
         </div>
       </li>
     </ul>

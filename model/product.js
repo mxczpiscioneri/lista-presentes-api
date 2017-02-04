@@ -11,6 +11,7 @@ var ProductSchema = new mongoose.Schema({
   pricemax: Number,
   link: String,
   image: String,
+  bought: Number,
   buyers: {
     id: String,
     name: String,

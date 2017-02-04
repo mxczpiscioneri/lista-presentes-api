@@ -47,6 +47,7 @@ exports.add = function(req, res) {
     pricemax: req.body.pricemax,
     link: req.body.link,
     image: req.body.image,
+    bought: req.body.bought
   });
 
   // find user
@@ -67,7 +68,7 @@ exports.add = function(req, res) {
           res.status(500);
           return res.json({
             success: false,
-            message: 'Error occured:: ' + err
+            message: 'Error occured: ' + err
           });
         } else {
           res.json({
@@ -99,12 +100,48 @@ exports.delete = function(req, res) {
           res.status(500);
           return res.json({
             success: false,
-            message: 'Error occured:: ' + err
+            message: 'Error occured: ' + err
           });
         } else {
           res.json({
             success: true,
             message: "Product deleted successfully"
+          });
+        }
+      });
+    }
+  });
+}
+
+exports.buy = function(req, res) {
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      // find product
+      user.events[0].products.forEach(function(product) {
+        if (product._id == req.params.id) {
+          // add buy
+          product.bought = req.params.bought;
+        }
+      });
+
+      // save user
+      user.save(function(err) {
+        if (err) {
+          res.status(500);
+          return res.json({
+            success: false,
+            message: 'Error occured: ' + err
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Product bought successfully"
           });
         }
       });

@@ -47,6 +47,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       controller: 'LogoutCtrl'
     })
     .when('/:slug', {
+      pageTitle: 'Lista de Presentes',
       templateUrl: '/views/public.html',
       controller: 'PublicCtrl'
     })

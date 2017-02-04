@@ -43,6 +43,7 @@ app.post('/api/users/:user/events/:id/upload', routeAuth.isAuthenticated, routeE
 
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);
+app.get('/api/users/:user/products/:id/buy/:bought', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 

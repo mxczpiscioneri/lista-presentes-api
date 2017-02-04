@@ -258,6 +258,7 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
       pricemax: product.pricemax,
       link: product.links[0].link.url,
       image: product.thumbnail.url,
+      bought: 0
     };
 
     ProductService.add(userId, ProductNew)
@@ -391,7 +392,10 @@ app.controller('MyListCtrl', function($scope, $window, ProductService) {
   }
 });
 
-app.controller('PublicCtrl', function($scope, $routeParams, EventService, ProductService) {
+app.controller('PublicCtrl', function($scope, $routeParams, $window, EventService, ProductService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+
   EventService.findByName($routeParams.slug)
     .then(function(result) {
       if (result.data.success) {
@@ -411,4 +415,35 @@ app.controller('PublicCtrl', function($scope, $routeParams, EventService, Produc
         'text': 'Erro!'
       };
     });
+
+  $scope.buy = function(product) {
+    if (product.bought > 0) {
+      if ($window.confirm("Este produto já foi comprado por outro convidado. Se realmente desejar comprar este produto, escolha uma loja que ofereça a troca do produto. Obrigado!")) {
+        bought(product);
+      }
+    } else {
+      bought(product);
+    }
+  }
+
+  function bought(product) {
+    product.bought = (product.bought || 0) + 1;
+
+    ProductService.buy(userId, product._id, product.bought)
+      .then(function(result) {
+        if (!result.data.success) {
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': result.data.message
+          };
+        }
+      }, function(status, result) {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': 'Erro!'
+        };
+      });
+  }
 });
