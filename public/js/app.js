@@ -69,7 +69,13 @@ app.run(function($rootScope, $route, $location, $window) {
   });
 
   $rootScope.$on('$routeChangeSuccess', function() {
+    // track pageview on state change
+    $window.ga('send', 'pageview', $location.path());
+
     document.title = $route.current.pageTitle;
     $rootScope.menuActive = $route.current.menuActive;
   });
+
+  // initialise google analytics
+  $window.ga('create', 'UA-91469585-1', 'auto');
 });
