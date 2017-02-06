@@ -34,12 +34,11 @@ app.put('/api/users/:id', routeAuth.isAuthenticated, routeUser.update);
 app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
 
 app.get('/api/events/:slug', routeEvent.findByName);
-app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findAll);
-app.get('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.findById);
+app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findById);
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
-app.put('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.update);
-app.delete('/api/users/:user/events/:id', routeAuth.isAuthenticated, routeEvent.delete);
-app.post('/api/users/:user/events/:id/upload', routeAuth.isAuthenticated, routeEvent.upload);
+app.put('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.update);
+app.delete('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.delete);
+app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, routeEvent.upload);
 
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);

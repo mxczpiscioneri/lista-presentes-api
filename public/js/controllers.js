@@ -91,10 +91,10 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
   var fileChanged = false;
 
-  EventService.findById(userId, eventId)
+  EventService.findById(userId)
     .then(function(data) {
       if (data.data.success) {
-        $scope.event = data.data.data.events[0];
+        $scope.event = data.data.data;
       } else {
         $scope.message = {
           'status': true,
@@ -109,7 +109,6 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
         'text': 'Erro!'
       };
     });
-
 
   // Close alert
   $scope.closeAlert = function() {
@@ -135,7 +134,7 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
   }
 
   $scope.upload = function(file) {
-    EventService.upload(userId, eventId, file)
+    EventService.upload(userId, file)
       .then(function(resp) {
         if (resp.data.success) {
           console.log('Success ' + resp.config.data.file.name + ' uploaded');
@@ -153,7 +152,7 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
     if (image) {
       $scope.event.image = image;
     }
-    EventService.update(userId, eventId, $scope.event)
+    EventService.update(userId, $scope.event)
       .then(function(resp) {
         if (resp.data.success) {
           $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
@@ -177,6 +176,23 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
         };
       });
   };
+  
+  $scope.$watch('event.name', function() {
+    $scope.event.slug = slugGenerate($scope.event.name);
+  });
+
+  // Generate slug
+  function slugGenerate(input) {
+    if (!input) return;
+    // make lower case and trim
+    var slug = input.toLowerCase().trim();
+    // replace invalid chars with spaces
+    slug = slug.replace(/[^a-z0-9\s-]/g, ' ');
+    // replace multiple spaces or hyphens with a single hyphen
+    slug = slug.replace(/[\s-]+/g, '-');
+
+    return slug;
+  }
 });
 
 app.controller('PresentsCtrl', function($scope, $window, ProductService) {

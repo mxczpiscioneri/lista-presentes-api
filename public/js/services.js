@@ -64,8 +64,8 @@ app.factory('EventService', function($http, Upload) {
     findAll: function(userId) {
       return $http.get(API_ENDPOINT + '/users/' + userId + '/events/');
     },
-    findById: function(userId, eventId) {
-      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/' + eventId);
+    findById: function(userId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/');
     },
     findByName: function(slug) {
       return $http.get(API_ENDPOINT + '/events/' + slug);
@@ -73,14 +73,14 @@ app.factory('EventService', function($http, Upload) {
     add: function(userId, event) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/events/', event);
     },
-    update: function(userId, eventId, event) {
-      return $http.put(API_ENDPOINT + '/users/' + userId + '/events/' + eventId, event);
+    update: function(userId, event) {
+      return $http.put(API_ENDPOINT + '/users/' + userId + '/events/', event);
     },
-    delete: function(userId, eventId) {
-      return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/' + eventId);
+    delete: function(userId) {
+      return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/');
     },
-    upload: function(userId, eventId, fileUpload) {
-      return Upload.upload({ url: API_ENDPOINT + '/users/' + userId + '/upload/', data: { file: fileUpload } });
+    upload: function(userId, fileUpload) {
+      return Upload.upload({ url: API_ENDPOINT + '/users/' + userId + '/events/upload/', data: { file: fileUpload } });
     }
   }
 });

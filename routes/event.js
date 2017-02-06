@@ -32,8 +32,9 @@ exports.findByName = function(req, res) {
 }
 
 exports.findById = function(req, res) {
-  // find user and event
-  User.findOne({ _id: new ObjectId(req.params.user) }, { 'events': { $elemMatch: { _id: new ObjectId(req.params.id) } } }, function(err, user) {
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    console.log(user);
 
     if (err) {
       res.status(500);
@@ -45,40 +46,13 @@ exports.findById = function(req, res) {
       if (user) {
         res.json({
           success: true,
-          data: user
+          data: user.events[0]
         });
       } else {
         res.status(404);
         res.json({
           success: false,
           message: "Event " + req.params.id + " not found"
-        });
-      }
-    }
-  });
-}
-
-exports.findAll = function(req, res) {
-  // find user and event
-  User.find({ _id: new ObjectId(req.params.user), 'events': { "$exists": true } }, function(err, user) {
-
-    if (err) {
-      res.status(500);
-      res.json({
-        success: false,
-        message: "Error occured: " + err
-      });
-    } else {
-      if (user) {
-        res.json({
-          success: true,
-          data: user
-        });
-      } else {
-        res.status(404);
-        res.json({
-          success: false,
-          message: "Events not found"
         });
       }
     }
@@ -130,7 +104,7 @@ exports.add = function(req, res) {
 
 exports.update = function(req, res) {
   // update event
-  User.findOneAndUpdate({ _id: new ObjectId(req.params.user), 'events._id': new ObjectId(req.params.id) }, { "$set": { "events.$": req.body } }, function(err, user) {
+  User.findById(new ObjectId(req.params.user), function(err, user) {
     if (err) {
       res.status(500);
       res.json({
@@ -138,34 +112,23 @@ exports.update = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
-      if (user) {
-        res.json({
-          success: true,
-          message: "Event: " + req.params.id + " updated successfully"
-        });
-      } else {
-        res.json({
-          success: false,
-          message: "Event: " + req.params.id + " not found"
-        });
-      }
-    }
-  });
-}
+      // add event in user
+      user.events[0] = req.body;
 
-exports.delete = function(req, res) {
-  User.findOneAndUpdate({ _id: new ObjectId(req.params.user) }, { $pull: { events: { _id: new ObjectId(req.params.id) } } }, req.body, function(err, user) {
-
-    if (err) {
-      res.status(500);
-      res.json({
-        success: false,
-        message: "Error occured: " + err
-      });
-    } else {
-      res.json({
-        success: true,
-        message: "Event: " + req.params.id + " deleted successfully"
+      // save event
+      user.save(function(err) {
+        if (err) {
+          res.status(500);
+          return res.json({
+            success: false,
+            message: 'Error occured:: ' + err
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Event updated successfully"
+          });
+        }
       });
     }
   });
