@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'angular.vertilize']);
 
-var API_ENDPOINT = "http://localhost:8080/api";
+var API_ENDPOINT = "/api";
 var LOCAL_TOKEN_KEY = "TokenListaPresentes";
 var LOCAL_ID_USER = "IdUserListaPresentes";
 var LOCAL_ID_EVENT = "IdEventListaPresentes"
