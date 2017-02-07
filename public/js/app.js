@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload']);
+var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'angular.vertilize']);
 
 var API_ENDPOINT = "http://localhost:8080/api";
 var LOCAL_TOKEN_KEY = "TokenListaPresentes";
@@ -34,6 +34,13 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       menuActive: 'myList',
       templateUrl: '/views/minha-lista.html',
       controller: 'MyListCtrl',
+      requiredAuthentication: true
+    })
+    .when('/meus-presentes', {
+      pageTitle: 'Meus Presentes',
+      menuActive: 'myPresents',
+      templateUrl: '/views/meus-presentes.html',
+      controller: 'MyPresentsCtrl',
       requiredAuthentication: true
     })
     .when('/login', {

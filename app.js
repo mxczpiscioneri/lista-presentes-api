@@ -37,11 +37,11 @@ app.get('/api/events/:slug', routeEvent.findByName);
 app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findById);
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
 app.put('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.update);
-app.delete('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.delete);
 app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, routeEvent.upload);
 
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);
+app.get('/api/users/:user/products/bought', routeAuth.isAuthenticated, routeProduct.bought);
 app.get('/api/users/:user/products/:id/buy/:bought', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);

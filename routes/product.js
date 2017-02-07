@@ -148,3 +148,25 @@ exports.buy = function(req, res) {
     }
   });
 }
+
+exports.bought = function(req, res) {
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      var products = user.events[0].products;
+      products = products.filter(function(el) {
+        return el.bought > 0;
+      });
+
+      res.json({
+        success: true,
+        data: products
+      });
+    }
+  });
+}

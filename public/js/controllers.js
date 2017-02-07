@@ -176,7 +176,7 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
         };
       });
   };
-  
+
   $scope.$watch('event.name', function() {
     $scope.event.slug = slugGenerate($scope.event.name);
   });
@@ -406,6 +406,30 @@ app.controller('MyListCtrl', function($scope, $window, ProductService) {
         };
       });
   }
+});
+
+app.controller('MyPresentsCtrl', function($scope, $window, ProductService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+
+  ProductService.bought(userId)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.myPresents = result.data.data;
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
 });
 
 app.controller('PublicCtrl', function($scope, $routeParams, $window, EventService, ProductService) {

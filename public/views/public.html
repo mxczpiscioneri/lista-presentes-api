@@ -1,13 +1,5 @@
 <!-- header -->
-<header id="header" class="grid-container-fluid bg-primary box-shadow">
-  <div class="grid-row">
-    <div class="grid-xs-12">
-      <h1 class="text-lg align-center">
-          <a href="/" class="text-white clear-decoration"><img src="/img/icon-lista-de-presentes.png" class="align-top margin-right-sm" alt="LISTA DE PRESENTES">LISTA DE PRESENTES</a>
-        </h1>
-    </div>
-  </div>
-</header>
+<ng-include src="'views/inc_header.html'"></ng-include>
 <!-- banner -->
 <div id="banner" class="grid-container-fluid margin-top-xs">
   <div class="grid-container">
@@ -70,13 +62,13 @@
 <div class="grid-container margin-top-sm">
   <!-- products -->
   <div class="grid-row">
-    <ul class="list list-horizontal">
+    <ul vertilize-container class="list list-horizontal">
       <li ng-repeat="product in event.products | filter: search" class="list-item grid-xs-3 margin-bottom-lg">
         <div class="bg-white bd-radius-md padding-lg box-shadow">
           <div class="align-center">
             <img title="{{product.name}}" class="img margin-bottom-sm" alt="{{product.name}}" src="{{product.image}}">
           </div>
-          <a class="text-sm text-default block" title="{{product.name}}" href="{{product.link}}">{{product.name}}</a>
+          <a vertilize class="text-sm text-default block" title="{{product.name}}" href="{{product.link}}">{{product.name}}</a>
           <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-lg text-primary bold">R$ {{product.pricemin}}</span></p>
           <p class="text-xs text-default clear-margin">Até: <span class="text-md text-primary bold">R$ {{product.pricemax}}</span></p>
           <p class="text-xs text-darkgray align-center margin-bottom-xs">{{product.bought || 0}} comprados</p>
@@ -87,8 +79,4 @@
   </div>
 </div>
 <!-- footer -->
-<footer class="grid-container-fluid padding-top-xl padding-bottom-lg bg-secondary">
-  <div class="grid-xs-12">
-    <p class="text-xxs text-white align-center">Created with <span class="text-xl text-primary align-middle">&hearts;</span> by <a href="http://matheuspiscioneri.com.br" class="text-white clear-decoration" target="_blank">Matheus Piscioneri</a></p>
-  </div>
-</footer>
+<ng-include src="'views/inc_footer.html'"></ng-include>

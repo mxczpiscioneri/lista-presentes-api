@@ -37,7 +37,7 @@
           </form>
         </div>
         <div class="grid-row margin-top-xl">
-          <ul class="list list-horizontal">
+          <ul vertilize-container class="list list-horizontal">
             <li ng-repeat="item in products" class="list-item grid-lg-3 grid-sm-4 grid-xs-6 margin-bottom-lg">
               <div class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
                 <div class="align-center margin-bottom-sm">
@@ -45,7 +45,7 @@
                     <img class="img block" ng-src="{{item.product.thumbnail.url ? item.product.thumbnail.url : '../img/unavailable.jpg'}}" alt="{{item.product.productname}}" title="{{item.product.productname}}">
                   </a>
                 </div>
-                <a class="text-xs text-default block name-product" title="{{item.product.productname}}" href="{{item.product.links[0].link.url}}" target="_blank">{{item.product.productname}}</a>
+                <a vertilize class="text-xs text-default block" title="{{item.product.productname}}" href="{{item.product.links[0].link.url}}" target="_blank">{{item.product.productname}}</a>
                 <p class="text-xs text-default margin-top-sm margin-bottom-sm">De: <span class="text-md text-primary bold">R$ {{item.product.pricemin}}</span></p>
                 <p class="text-xs text-default clear-margin">Até: <span class="text-sm text-primary bold">R$ {{item.product.pricemax}}</span></p>
                 <button ng-hide="item.product.added" ng-click="add(item.product)" class="btn-sm btn-primary margin-top-sm">+ ADICIONAR</button>

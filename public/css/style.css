@@ -19,7 +19,7 @@ body {
 }
 
 .vaquinha {
-  background: url("../img/vaquinha1.png");
+  background: url("/img/vaquinha.png");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -56,5 +56,9 @@ body {
 
 .alert.error {
   background-color: #FFBEB9 !important;
+}
+
+.cursor-disabled {
+  cursor: not-allowed;
 }
 
