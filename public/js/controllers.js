@@ -432,7 +432,7 @@ app.controller('MyPresentsCtrl', function($scope, $window, ProductService) {
     });
 });
 
-app.controller('PublicCtrl', function($scope, $routeParams, $window, EventService, ProductService) {
+app.controller('PublicCtrl', function($scope, $routeParams, $window, $location, EventService, ProductService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
 
@@ -442,18 +442,10 @@ app.controller('PublicCtrl', function($scope, $routeParams, $window, EventServic
         $scope.event = result.data.data.events[0];
         console.log(result.data.data.events[0]);
       } else {
-        $scope.message = {
-          'status': true,
-          'type': 'error',
-          'text': result.data.message
-        };
+        $location.path("/404");
       }
     }, function(status, result) {
-      $scope.message = {
-        'status': true,
-        'type': 'error',
-        'text': 'Erro!'
-      };
+      $location.path("/404");
     });
 
   $scope.buy = function(product) {

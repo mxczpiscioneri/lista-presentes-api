@@ -53,13 +53,17 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       templateUrl: '/views/login.html',
       controller: 'LogoutCtrl'
     })
+    .when('/404', {
+      pageTitle: 'Página não encontrada',
+      templateUrl: '/views/404.html'
+    })
     .when('/:slug', {
       pageTitle: 'Lista de Presentes',
       templateUrl: '/views/public.html',
       controller: 'PublicCtrl'
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/404'
     });
 
   $locationProvider.html5Mode(true);
