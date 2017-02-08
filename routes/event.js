@@ -3,6 +3,7 @@ var ObjectId = mongoose.Types.ObjectId;
 var multer = require('multer');
 var User = require('../model/user');
 var EventSchema = require('../model/event');
+var ConfirmationSchema = require('../model/confirmation');
 
 exports.findByName = function(req, res) {
   // find event
@@ -55,6 +56,78 @@ exports.findById = function(req, res) {
           message: "Event " + req.params.id + " not found"
         });
       }
+    }
+  });
+}
+
+exports.confirmations = function(req, res) {
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    console.log(user);
+
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      if (user) {
+        res.json({
+          success: true,
+          data: user.events[0].confirmations
+        });
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "Event " + req.params.id + " not found"
+        });
+      }
+    }
+  });
+}
+
+exports.confirmation = function(req, res) {
+  // create confirmation
+  Confirmation = mongoose.model('Confirmation', ConfirmationSchema);
+  var ConfirmationNew = new Confirmation({
+    name: req.body.name,
+    accept: req.body.accept,
+    adults: req.body.adults,
+    children: req.body.children,
+    email: req.body.email,
+    phone: req.body.phone,
+    message: req.body.message
+  });
+
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      // add confirmation
+      user.events[0].confirmations.push(ConfirmationNew);
+
+      // save user
+      user.save(function(err) {
+        if (err) {
+          res.status(500);
+          return res.json({
+            success: false,
+            message: 'Error occured: ' + err
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Confirmation added successfully"
+          });
+        }
+      });
     }
   });
 }

@@ -91,9 +91,13 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
       return el.bought > 0;
     });
 
+    var eventConfirmations = event.confirmations.filter(function(el) {
+      return el.accept == true;
+    });
+
     $scope.eventGifts = eventGifts.length;
     $scope.eventDonations = 'R$ 123,45';
-    $scope.eventConfirmations = 99;
+    $scope.eventConfirmations = eventConfirmations.length;
   }
 });
 
@@ -451,7 +455,6 @@ app.controller('PublicCtrl', function($scope, $routeParams, $window, $location, 
     .then(function(result) {
       if (result.data.success) {
         $scope.event = result.data.data.events[0];
-        console.log(result.data.data.events[0]);
       } else {
         $location.path("/404");
       }
@@ -475,6 +478,66 @@ app.controller('PublicCtrl', function($scope, $routeParams, $window, $location, 
     ProductService.buy(userId, product._id, product.bought)
       .then(function(result) {
         if (!result.data.success) {
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': result.data.message
+          };
+        }
+      }, function(status, result) {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': 'Erro!'
+        };
+      });
+  }
+});
+
+app.controller('ConfirmationsCtrl', function($scope, $window, EventService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+
+  EventService.confirmations(userId)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.confirmations = result.data.data;
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
+
+  $scope.add = function(confirmation) {
+
+    var ConfirmationNew = {
+      name: product.name,
+      accept: product.accept,
+      adults: product.adults,
+      children: product.children,
+      email: product.email,
+      phone: product.phone,
+      message: product.message
+    };
+
+    ProductService.add(userId, ConfirmationNew)
+      .then(function(result) {
+        if (result.data.success) {
+          $scope.message = {
+            'status': true,
+            'type': 'success',
+            'text': 'Produto adicionado com sucesso!'
+          };
+        } else {
           $scope.message = {
             'status': true,
             'type': 'error',

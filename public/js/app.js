@@ -43,6 +43,13 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       controller: 'MyPresentsCtrl',
       requiredAuthentication: true
     })
+    .when('/confirmacoes', {
+      pageTitle: 'Confirmações de Presença',
+      menuActive: 'confirmations',
+      templateUrl: '/views/confirmacoes.html',
+      controller: 'ConfirmationsCtrl',
+      requiredAuthentication: true
+    })
     .when('/login', {
       pageTitle: 'Login',
       menuActive: 'login',

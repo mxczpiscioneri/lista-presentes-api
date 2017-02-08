@@ -61,23 +61,23 @@ app.factory('UserService', function($http, $rootScope) {
 
 app.factory('EventService', function($http, Upload) {
   return {
-    findAll: function(userId) {
-      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/');
-    },
     findById: function(userId) {
       return $http.get(API_ENDPOINT + '/users/' + userId + '/events/');
     },
     findByName: function(slug) {
       return $http.get(API_ENDPOINT + '/events/' + slug);
     },
+    confirmations: function(userId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/confirmations');
+    },
+    confirmation: function(userId, confirmation) {
+      return $http.post(API_ENDPOINT + '/users/' + userId + '/events/confirmation', confirmation);
+    },
     add: function(userId, event) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/events/', event);
     },
     update: function(userId, event) {
       return $http.put(API_ENDPOINT + '/users/' + userId + '/events/', event);
-    },
-    delete: function(userId) {
-      return $http.delete(API_ENDPOINT + '/users/' + userId + '/events/');
     },
     upload: function(userId, fileUpload) {
       return Upload.upload({ url: API_ENDPOINT + '/users/' + userId + '/events/upload/', data: { file: fileUpload } });

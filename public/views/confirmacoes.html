@@ -1,0 +1,37 @@
+<!-- header -->
+<ng-include src="'views/inc_header.html'"></ng-include>
+<!-- main -->
+<div class="grid-container margin-top-xl">
+  <div class="grid-row">
+    <!-- menu -->
+    <ng-include src="'views/inc_sidebar.html'"></ng-include>
+    <!-- content -->
+    <div class="grid-xs-9">
+      <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
+        <div class="grid-row">
+          <div class="grid-xs-12">
+            <h2 class="text-lg text-default clear-margin">Confirmações de Presença</h2>
+          </div>
+        </div>
+        <div class="grid-row margin-top-xl margin-bottom-xl">
+          <div class="grid-xs-12">
+            <ul class="list">
+              <li ng-repeat="item in confirmations">
+                <p class="">{{item.name}}</p>
+                <p class="">{{item.accept}}</p>
+                <p class="">{{item.adults}}</p>
+                <p class="">{{item.children}}</p>
+                <p class="">{{item.email}}</p>
+                <p class="">{{item.telefone}}</p>
+                <p class="">{{item.message}}</p>
+                <p class="">{{item.created}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<ng-include src="'views/inc_footer.html'"></ng-include>
