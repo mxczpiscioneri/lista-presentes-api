@@ -13,29 +13,29 @@
             <h2 class="text-lg text-default clear-margin">Início</h2>
           </div>
         </div>
-        <div class="grid-row margin-top-xl">
+        <div ng-show="eventGifts" class="grid-row margin-top-xl">
           <div class="grid-xs-4 align-center">
             <div class="bd-xs bd-solid bd-gray bd-radius-lg">
               <p class="text-sm text-default">Vocês ganharam</p>
-              <p class="text-xl text-primary">123</p>
+              <p class="text-xl text-primary">{{eventGifts}}</p>
               <p class="text-sm text-default">presentes até o momento</p>
-              <p class="text-sm"><a href="#" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
+              <p class="text-sm"><a href="/meus-presentes" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
             </div>
           </div>
-          <div class="grid-xs-4 align-center">
+          <div ng-show="eventDonations" class="grid-xs-4 align-center">
             <div class="bd-xs bd-solid bd-gray bd-radius-lg">
               <p class="text-sm text-default">Vocês possuem</p>
-              <p class="text-xl text-primary">R$ 1234,56</p>
-              <p class="text-sm text-default">presentes até o momento</p>
-              <p class="text-sm"><a href="#" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
+              <p class="text-xl text-primary">{{eventDonations}}</p>
+              <p class="text-sm text-default">de doações na vaquinha</p>
+              <p class="text-sm"><a href="/vaquinha" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
             </div>
           </div>
-          <div class="grid-xs-4 align-center">
+          <div ng-show="eventConfirmations" class="grid-xs-4 align-center">
             <div class="bd-xs bd-solid bd-gray bd-radius-lg">
               <p class="text-sm text-default">Vocês tiveram</p>
-              <p class="text-xl text-primary">98</p>
+              <p class="text-xl text-primary">{{eventConfirmations}}</p>
               <p class="text-sm text-default">confirmações de presença</p>
-              <p class="text-sm"><a href="#" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
+              <p class="text-sm"><a href="/confirmacoes-presenca" class="btn btn-sm btn-secondary text-white clear-decoration inline-block clear-width padding-left-sm padding-right-sm">Ver relatório</a></p>
             </div>
           </div>
         </div>

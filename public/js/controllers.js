@@ -70,6 +70,7 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
     .then(function(result) {
       if (result.data.success) {
         UserService.set(result.data.data);
+        showCounters(result.data.data.events[0]);
       } else {
         $scope.message = {
           'status': true,
@@ -84,6 +85,16 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
         'text': 'Erro!'
       };
     });
+
+  function showCounters(event) {
+    var eventGifts = event.products.filter(function(el) {
+      return el.bought > 0;
+    });
+
+    $scope.eventGifts = eventGifts.length;
+    $scope.eventDonations = 'R$ 123,45';
+    $scope.eventConfirmations = 99;
+  }
 });
 
 app.controller('EventCtrl', function($scope, $window, UserService, EventService) {
