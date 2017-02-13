@@ -175,11 +175,12 @@ app.controller('DashboardCtrl', function($scope, $location, $window, UserService
 app.controller('EventCtrl', function($scope, $window, UserService, EventService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
-  var fileChanged = false;
+  $scope.fileUploaded = false;
 
   EventService.findById(userId)
     .then(function(data) {
       if (data.data.success) {
+        data.data.data.date = new Date(data.data.data.date).toLocaleDateString();
         $scope.event = data.data.data;
       } else {
         $scope.message = {
@@ -201,12 +202,16 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
 
   // Check if uploaded
   $scope.fileChanged = function() {
-    fileChanged = true;
+    $scope.fileUploaded = true;
   }
 
   $scope.editEvent = function() {
+    // Format date
+    var parts = $scope.event.date.split('/');
+    $scope.event.date = new Date(parts[2], parts[1] - 1, parts[0]);
+
     // Check if uploaded
-    if (fileChanged) {
+    if ($scope.fileUploaded) {
       $scope.upload($scope.event.image);
     } else {
       $scope.update();
@@ -235,6 +240,7 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
     EventService.update(userId, $scope.event)
       .then(function(resp) {
         if (resp.data.success) {
+          $scope.event.date = new Date($scope.event.date).toLocaleDateString();
           $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
           $scope.message = {
             'status': true,

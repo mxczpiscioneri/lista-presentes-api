@@ -36,7 +36,7 @@
           <div class="grid-row margin-bottom-xl">
             <div class="grid-xs-6">
               <label class="text-sm text-default">Data:</label>
-              <input id="abv" class="field text-field text-field-lg" type="text" ng-model="event.date" required>
+              <input id="date" class="field text-field text-field-lg" type="text" name="date" mask="39/19/9999" ng-value="event.date" ng-model="event.date" required>
             </div>
             <div class="grid-xs-6">
               <label class="text-sm text-default">Hora:</label>
@@ -62,8 +62,22 @@
           <div class="grid-row margin-bottom-xl">
             <div class="grid-xs-12">
               <label class="text-sm text-default block margin-bottom-xs">Imagem de capa:</label>
-              <img ng-show="event.image.indexOf('file-') != -1" ngf-thumbnail="'/uploads/' + event.image || '/img/capa-default.jpg'" class="img">
-              <input type="file" class="block" ngf-select ng-model="event.image" name="image" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-Change="fileChanged()">
+              <img ng-show="!fileUploaded" ngf-thumbnail="'/uploads/' + event.image" class="img">
+
+              <label>
+                <input type="radio" ng-model="event.image" value="cover-default.jpg">
+                Capa 1
+              </label>
+
+              <label>
+                <input type="radio" ng-model="event.image" value="cover-default2.jpg">
+                Capa 2
+              </label>
+              <label>
+                <input type="radio" ng-model="event.image" value="cover-default3.jpg">
+                Capa 3
+              </label>
+              <input type="file" class="block" ngf-select ng-model="event.image" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-Change="fileChanged()">
               <i ng-show="event.form.image.$error.maxSize">Arquivo muito grande {{event.image.size / 1000000|number:1}}MB: max 5MB</i>
             </div>
           </div>

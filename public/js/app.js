@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'angular.vertilize']);
+var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'angular.vertilize', 'ngMask']);
 
 var API_ENDPOINT = "/api";
 var LOCAL_TOKEN_KEY = "TokenListaPresentes";
