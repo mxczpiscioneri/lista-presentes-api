@@ -7,7 +7,7 @@
         <div class="login-header bg-secondary padding-top-sm padding-bottom-sm padding-left-xl padding-right-xl">
           <h2 class="text-lg text-white align-center">
             <img src="img/icon-lista-de-presentes-white.png" class="align-top margin-right-sm" alt="LISTA DE PRESENTES">
-            LOGIN
+            CADASTRAR
           </h2>
         </div>
         <div class="login-content padding-xl">
@@ -16,19 +16,21 @@
             <span class="pull-right pointer" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></span>
           </div>
           <form class="login-form" name="form" ng-submit="submit()" novalidate>
+            <div class="margin-bottom-lg">
+              <label class="text-xs text-default" for="name">Nome</label>
+              <input ng-model="user.name" type="text" class="field text-field text-field-lg" placeholder="Digite seu nome" id="name" name="name" autofocus="true" autocomplete="off" required>
+            </div>
             <div class="margin-bottom-lg" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine }">
               <label class="text-xs text-default" for="email">E-mail</label>
-              <input ng-model="user.email" type="email" class="field text-field text-field-lg" placeholder="Digite seu e-mail" id="email" name="email" autofocus="true" autocomplete="off" required>
-              <!-- <input ng-model="user.email" type="email" class="field text-field text-field-lg" placeholder="Digite seu e-mail" id="email" name="email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]/" autofocus="true" autocomplete="off" required> -->
+              <input ng-model="user.email" type="email" class="field text-field text-field-lg" placeholder="Digite seu e-mail" id="email" name="email" autocomplete="off" required>
               <p ng-show="form.email.$invalid && !form.email.$pristine" class="absolute margin-top-xs text-xxs text-red">Digite um e-mail válido.</p>
             </div>
-            <div class="margin-bottom-lg" ng-class="{ 'has-error' : form.password.$invalid && !form.password.$pristine }">
+            <div class="margin-bottom-lg">
               <label class="text-xs text-default" for="password">Senha</label>
               <input ng-model="user.password" type="password" class="field text-field text-field-lg" placeholder="Digite sua senha" id="password" name="password" required>
-              <span ng-show="form.password.$invalid && !form.password.$pristine" class="absolute margin-top-xs text-xxs text-red">Digite uma senha.</span>
             </div>
-            <input type="submit" ng-disabled="form.$invalid" class="btn-lg btn-primary" value="ENTRAR">
-            <a href="/cadastrar" class="text-xs text-primary block align-center margin-top-xs">Cadastrar</a>
+            <input type="submit" ng-disabled="form.$invalid" class="btn-lg btn-primary" value="CADASTRAR">
+            <a href="/login" class="text-xs text-primary block align-center margin-top-xs">Login</a>
           </form>
         </div>
       </div>

@@ -20,6 +20,7 @@ exports.search = function(req, res) {
 }
 
 exports.findAll = function(req, res) {
+  // find user
   User.findById(new ObjectId(req.params.user), function(err, user) {
     if (err) {
       res.status(500);
@@ -28,10 +29,26 @@ exports.findAll = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
-      res.json({
-        success: true,
-        data: user.events[0].products
-      });
+      if (user) {
+        if (user.events[0]) {
+          res.json({
+            success: true,
+            data: user.events[0].products
+          });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "User " + req.params.id + " not found"
+        });
+      }
     }
   });
 }
@@ -92,7 +109,9 @@ exports.delete = function(req, res) {
       });
     } else {
       // remove product
-      user.events[0].products.remove({ _id: req.params.id });
+      user.events[0].products.remove({
+        _id: req.params.id
+      });
 
       // save user
       user.save(function(err) {
@@ -158,15 +177,31 @@ exports.bought = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
-      var products = user.events[0].products;
-      products = products.filter(function(el) {
-        return el.bought > 0;
-      });
+      if (user) {
+        if (user.events[0]) {
+          var products = user.events[0].products;
+          products = products.filter(function(el) {
+            return el.bought > 0;
+          });
 
-      res.json({
-        success: true,
-        data: products
-      });
+          res.json({
+            success: true,
+            data: products
+          });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "User " + req.params.id + " not found"
+        });
+      }
     }
   });
 }

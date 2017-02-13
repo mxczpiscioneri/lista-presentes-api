@@ -52,9 +52,13 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     })
     .when('/login', {
       pageTitle: 'Login',
-      menuActive: 'login',
       templateUrl: '/views/login.html',
       controller: 'LoginCtrl'
+    })
+    .when('/cadastrar', {
+      pageTitle: 'Cadastrar',
+      templateUrl: '/views/cadastrar.html',
+      controller: 'RegisterCtrl'
     })
     .when('/logout', {
       templateUrl: '/views/login.html',

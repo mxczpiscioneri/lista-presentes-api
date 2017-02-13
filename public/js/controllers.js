@@ -56,13 +56,80 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
   // loadUserCredentials();
 });
 
+app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserService) {
+
+  // Start variables
+  $scope.message = {
+    status: false,
+    type: '',
+    text: ''
+  };
+
+  $scope.user = {
+    name: '',
+    email: '',
+    password: ''
+  };
+
+  // Close alert
+  $scope.closeAlert = function() {
+    $scope.message = {
+      'status': false,
+      'type': '',
+      'text': ''
+    };
+  };
+
+  // Submit register form
+  $scope.submit = function() {
+    UserService.add($scope.user)
+      .then(function(data) {
+        if (data.data.success) {
+          // Login user
+          UserService.login($scope.user)
+            .then(function(data) {
+              if (data.data.success) {
+                $window.localStorage.setItem(LOCAL_ID_USER, data.data.user);
+                $window.localStorage.setItem(LOCAL_TOKEN_KEY, data.data.token);
+                $location.path("/dashboard");
+              } else {
+                $scope.message = {
+                  'status': true,
+                  'type': 'error',
+                  'text': data.data.message
+                };
+              }
+            }, function(status, data) {
+              $scope.message = {
+                'status': true,
+                'type': 'error',
+                'text': 'Erro!'
+              };
+            });
+        } else {
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': data.data.message
+          };
+        }
+      }, function(status, data) {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': 'Erro!'
+        };
+      });
+  };
+});
+
 app.controller('LogoutCtrl', function($location, $window) {
   $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   $window.localStorage.removeItem(LOCAL_ID_USER);
   $location.path('/login');
 });
 
-app.controller('DashboardCtrl', function($scope, $window, UserService) {
+app.controller('DashboardCtrl', function($scope, $location, $window, UserService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
 
@@ -70,7 +137,11 @@ app.controller('DashboardCtrl', function($scope, $window, UserService) {
     .then(function(result) {
       if (result.data.success) {
         UserService.set(result.data.data);
-        showCounters(result.data.data.events[0]);
+        if (result.data.data.events[0]) {
+          showCounters(result.data.data.events[0]);
+        } else {
+          $location.path("/evento");
+        }
       } else {
         $scope.message = {
           'status': true,
@@ -117,12 +188,6 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
           'text': data.data.message
         };
       }
-    }, function(status, data) {
-      $scope.message = {
-        'status': true,
-        'type': 'error',
-        'text': 'Erro!'
-      };
     });
 
   // Close alert
@@ -222,6 +287,7 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
         $scope.myList = result.data.data;
         $scope.getProducts(1, $scope.sort);
       } else {
+        $scope.myList = null;
         $scope.message = {
           'status': true,
           'type': 'error',
@@ -229,6 +295,7 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
         };
       }
     }, function(status, result) {
+      $scope.myList = null;
       $scope.message = {
         'status': true,
         'type': 'error',
@@ -245,7 +312,7 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
         if (data.status == 200) {
 
           // Check if Buscape product has already been added
-          if (data.data.product.length > 0) {
+          if (data.data.product.length > 0 && $scope.myList) {
             for (var i = 0; i < data.data.product.length; i++) {
               for (var j = 0; j < $scope.myList.length; j++) {
                 if (data.data.product[i].product.id == $scope.myList[j].buscapeId) {

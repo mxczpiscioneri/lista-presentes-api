@@ -7,7 +7,11 @@ var ConfirmationSchema = require('../model/confirmation');
 
 exports.findByName = function(req, res) {
   // find event
-  User.findOne({ 'events.slug': req.params.slug }, { 'events.$': 1 }, function(err, event) {
+  User.findOne({
+    'events.slug': req.params.slug
+  }, {
+    'events.$': 1
+  }, function(err, event) {
 
     if (err) {
       res.status(500);
@@ -35,7 +39,6 @@ exports.findByName = function(req, res) {
 exports.findById = function(req, res) {
   // find user
   User.findById(new ObjectId(req.params.user), function(err, user) {
-    console.log(user);
 
     if (err) {
       res.status(500);
@@ -45,15 +48,23 @@ exports.findById = function(req, res) {
       });
     } else {
       if (user) {
-        res.json({
-          success: true,
-          data: user.events[0]
-        });
+        if (user.events[0]) {
+          res.json({
+            success: true,
+            data: user.events[0]
+          });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
       } else {
         res.status(404);
         res.json({
           success: false,
-          message: "Event " + req.params.id + " not found"
+          message: "User " + req.params.id + " not found"
         });
       }
     }
@@ -63,7 +74,6 @@ exports.findById = function(req, res) {
 exports.confirmations = function(req, res) {
   // find user
   User.findById(new ObjectId(req.params.user), function(err, user) {
-    console.log(user);
 
     if (err) {
       res.status(500);
@@ -73,15 +83,23 @@ exports.confirmations = function(req, res) {
       });
     } else {
       if (user) {
-        res.json({
-          success: true,
-          data: user.events[0].confirmations
-        });
+        if (user.events[0]) {
+          res.json({
+            success: true,
+            data: user.events[0].confirmations
+          });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
       } else {
         res.status(404);
         res.json({
           success: false,
-          message: "Event " + req.params.id + " not found"
+          message: "User " + req.params.id + " not found"
         });
       }
     }
@@ -234,10 +252,13 @@ exports.upload = function(req, res) {
       });
       return;
     }
-    res.status(200);
-    res.json({
-      success: true,
-      data: req.file.filename
-    });
+    if (req.file) {
+      res.status(200);
+      res.json({
+        success: true,
+        data: req.file.filename
+      });
+    }
+    return;
   });
 }

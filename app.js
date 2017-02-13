@@ -38,7 +38,7 @@ app.post('/api/refreshAuthentication', routeAuth.refreshAuthentication);
 
 app.get('/api/users', routeAuth.isAuthenticated, routeUser.findAll);
 app.get('/api/users/:id', routeAuth.isAuthenticated, routeUser.findById);
-app.post('/api/users', routeAuth.isAuthenticated, routeUser.add);
+app.post('/api/users', routeUser.add);
 app.put('/api/users/:id', routeAuth.isAuthenticated, routeUser.update);
 app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
 
