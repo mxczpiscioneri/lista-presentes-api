@@ -36,11 +36,11 @@
           <div class="grid-row margin-bottom-xl">
             <div class="grid-xs-6">
               <label class="text-sm text-default">Data:</label>
-              <input id="date" class="field text-field text-field-lg" type="text" mask="39/19/9999" ng-value="event.date" ng-model="event.date" required>
+              <input id="date" class="field text-field text-field-lg" type="text" mask="31/12/2099" ng-model="event.date" required>
             </div>
             <div class="grid-xs-6">
               <label class="text-sm text-default">Hora:</label>
-              <input id="time" class="field text-field text-field-lg" type="text" ng-model="event.time">
+              <input id="time" class="field text-field text-field-lg" type="text" mask="23:59" ng-model="event.time">
             </div>
           </div>
           <div class="grid-row margin-bottom-xl">

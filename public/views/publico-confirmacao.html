@@ -43,11 +43,11 @@
             </div>
             <div class="grid-xs-4">
               <label class="text-sm text-default">Número de adultos:</label>
-              <input id="adults" class="field text-field text-field-lg" type="number" ng-model="confirmation.adults" required>
+              <input id="adults" class="field text-field text-field-lg" type="number" mask="99" ng-model="confirmation.adults" required>
             </div>
             <div class="grid-xs-4">
               <label class="text-sm text-default">Número de crianças:</label>
-              <input id="children" class="field text-field text-field-lg" type="number" ng-model="confirmation.children" required>
+              <input id="children" class="field text-field text-field-lg" type="number" mask="99" ng-model="confirmation.children" required>
             </div>
           </div>
           <div class="grid-row margin-bottom-xl">
@@ -57,7 +57,7 @@
             </div>
             <div class="grid-xs-6">
               <label class="text-sm text-default">Telefone:</label>
-              <input id="phone" class="field text-field text-field-lg" type="text" ng-model="confirmation.phone">
+              <input id="phone" class="field text-field text-field-lg" type="text" mask="(99) 9?9999-9999" ng-model="confirmation.phone">
             </div>
           </div>
           <div class="grid-row margin-bottom-xl">
