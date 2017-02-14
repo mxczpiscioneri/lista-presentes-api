@@ -70,8 +70,13 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     })
     .when('/:slug', {
       pageTitle: 'Lista de Presentes',
-      templateUrl: '/views/public.html',
+      templateUrl: '/views/publico.html',
       controller: 'PublicCtrl'
+    })
+    .when('/:slug/confirmacao', {
+      pageTitle: 'Lista de Presentes',
+      templateUrl: '/views/publico-confirmacao.html',
+      controller: 'PublicConfirmationCtrl'
     })
     .otherwise({
       redirectTo: '/404'

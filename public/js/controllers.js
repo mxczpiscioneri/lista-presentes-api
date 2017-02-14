@@ -589,20 +589,37 @@ app.controller('ConfirmationsCtrl', function($scope, $window, EventService) {
         'text': 'Erro!'
       };
     });
+});
 
-  $scope.add = function(confirmation) {
+app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventService) {
+
+  var userId;
+
+  EventService.findByName($routeParams.slug)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.event = result.data.data.events[0];
+        userId = result.data.data._id;
+      } else {
+        $location.path("/404");
+      }
+    }, function(status, result) {
+      $location.path("/404");
+    });
+
+  $scope.addConfirmation = function(confirmation) {
 
     var ConfirmationNew = {
-      name: product.name,
-      accept: product.accept,
-      adults: product.adults,
-      children: product.children,
-      email: product.email,
-      phone: product.phone,
-      message: product.message
+      name: confirmation.name,
+      accept: confirmation.accept,
+      adults: confirmation.adults,
+      children: confirmation.children,
+      email: confirmation.email,
+      phone: confirmation.phone,
+      message: confirmation.message
     };
 
-    ProductService.add(userId, ConfirmationNew)
+    EventService.confirmation(userId, ConfirmationNew)
       .then(function(result) {
         if (result.data.success) {
           $scope.message = {
