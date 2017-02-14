@@ -6,7 +6,7 @@
     <!-- menu -->
     <ng-include src="'views/inc_sidebar.html'"></ng-include>
     <!-- content -->
-    <div class="grid-xs-9">
+    <div class="grid-md-9 grid-xs-12">
       <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
         <div class="grid-row">
           <div class="grid-xs-12">
@@ -15,8 +15,8 @@
         </div>
         <div class="grid-row margin-top-xl margin-bottom-xl">
           <div class="grid-xs-12">
-            <ul vertilize-container class="list list-horizontal">
-              <li ng-repeat="item in confirmations" class="list-item grid-xs-12 margin-bottom-lg">
+            <ul vertilize-container class="list">
+              <li ng-repeat="item in confirmations" class="list-item margin-bottom-lg">
                 <div vertilize class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Nome:</span> {{item.name}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Confirmar:</span> {{item.accept}}</p>

@@ -22,7 +22,7 @@
         </div>
         <div class="grid-row margin-top-xl">
           <form>
-            <div class="grid-sm-3 grid-xs-12">
+            <div class="grid-lg-3 grid-sm-12 margin-bottom-sm">
               <label for="filter-price" class="text-xs text-default margin-bottom-xs">Ordenar por:</label>
               <select ng-model="sort" ng-change="sorting()" class="field text-field-md select">
                 <option ng-selected="sort == rate" value="rate">Mais populares</option>
@@ -30,7 +30,7 @@
                 <option ng-selected="sort == dprice" value="dprice">Maior preço</option>
               </select>
             </div>
-            <div class="grid-sm-9 grid-xs-12">
+            <div class="grid-lg-9 grid-sm-12 margin-bottom-sm">
               <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
               <input ng-model="search" ng-model-options='{ debounce: 400 }' type="text" id="search" name="search" class="field text-field-md" placeholder="Digite o nome do produto...">
             </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="grid-row margin-top-xl">
           <ul vertilize-container class="list list-horizontal">
-            <li ng-repeat="item in products" class="list-item grid-lg-3 grid-sm-4 grid-xs-6 margin-bottom-lg">
+            <li ng-repeat="item in products" class="list-item grid-xl-3 grid-lg-4 grid-sm-6 grid-xs-12 margin-bottom-lg">
               <div class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
                 <div class="align-center margin-bottom-sm">
                   <a href="{{item.product.links[0].link.url}}" target="_blank">

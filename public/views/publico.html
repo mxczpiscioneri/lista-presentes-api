@@ -5,7 +5,7 @@
   <div class="grid-container">
     <div class="grid-row">
       <div class="grid-xs-12">
-        <a href="/{{event.slug}}">
+        <a href="/{{event.slug}}" class="clear-decoration">
           <img src="/uploads/{{event.image}}" class="img block" alt="Matheus e Marcela">
           <div class="shadow-banner absolute position-bottom position-left position-right padding-sm margin-left-sm margin-right-sm">
             <h1 class="text-xl text-white align-center clear-margin padding-top-xl">{{event.name}} &hearts; {{event.date | date:'dd/MM/yyyy'}}</h1>
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="grid-row">
-    <div class="grid-xs-2 grid-xs-offset-5">
+    <div class="grid-lg-2 grid-lg-offset-5 grid-md-4 grid-md-offset-4 grid-xs-6 grid-xs-offset-3">
       <a href="#" class="clear-decoration">
         <buttom type="buttom" class="btn-lg text-white bd-white bd-sm bd-solid">$ AJUDAR $</buttom>
       </a>
@@ -34,7 +34,7 @@
 <div class="grid-container margin-top-xl">
   <div class="grid-row">
     <form action="" method="post">
-      <div class="grid-xs-3">
+      <div class="grid-lg-3 grid-sm-4 grid-xs-12 margin-bottom-sm">
         <label for="filter-price" class="text-xs text-default margin-bottom-xs">Ordenar por:</label>
         <select name="order" id="order" class="field text-field-lg select">
           <option value="0">Mais popular</option>
@@ -45,7 +45,7 @@
           <option value="4">Z - A</option>
         </select>
       </div>
-      <div class="grid-xs-6 grid-xs-offset-3">
+      <div class="grid-lg-6 grid-lg-offset-3 grid-sm-8 grid-xs-12 margin-bottom-sm">
         <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
         <input type="text" id="search" ng-model="search" class="field text-field-lg" placeholder="Digite o nome do produto...">
       </div>
@@ -65,7 +65,7 @@
   <!-- products -->
   <div class="grid-row">
     <ul vertilize-container class="list list-horizontal">
-      <li ng-repeat="product in event.products | filter: search" class="list-item grid-xs-3 margin-bottom-lg">
+      <li ng-repeat="product in event.products | filter: search" class="list-item grid-lg-3 grid-md-4 grid-sm-6 grid-xs-12 margin-bottom-lg">
         <div class="bg-white bd-radius-md padding-lg box-shadow">
           <div class="align-center">
             <img title="{{product.name}}" class="img margin-bottom-sm" alt="{{product.name}}" src="{{product.image}}">
@@ -79,8 +79,9 @@
       </li>
     </ul>
   </div>
+  <!-- confirmation -->
   <div class="grid-row margin-top-xl">
-    <div class="grid-xs-4 grid-xs-offset-4">
+    <div class="grid-lg-4 grid-lg-offset-4 grid-sm-6 grid-sm-offset-3 grid-xs-10 grid-xs-offset-1">
       <a href="/{{event.slug}}/confirmacao" class="clear-decoration">
         <buttom type="buttom" class="btn-lg text-secondary bd-secondary bd-sm bd-solid">Confirmar Presença &check;</buttom>
       </a>

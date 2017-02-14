@@ -13,7 +13,7 @@
     <!-- menu -->
     <ng-include src="'views/inc_sidebar.html'"></ng-include>
     <!-- content -->
-    <div class="grid-xs-9">
+    <div class="grid-md-9 grid-xs-12">
       <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
         <div class="grid-row">
           <div class="grid-xs-12">
@@ -63,28 +63,28 @@
             <div class="grid-xs-12">
               <label class="text-sm text-default block margin-bottom-xs">Imagem de capa:</label>
             </div>
-            <div class="grid-xs-3">
+            <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-lg">
               <label>
                 <img ng-src="/uploads/cover-default1.jpg" alt="Capa padrão 1" class="img">
                 <input type="radio" ng-model="event.image" value="cover-default1.jpg"> 
                 Capa padrão 1
               </label>
             </div>
-            <div class="grid-xs-3">
+            <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-lg">
               <label>
                 <img ng-src="/uploads/cover-default2.jpg" alt="Capa padrão 2" class="img">
                 <input type="radio" ng-model="event.image" value="cover-default2.jpg">
                 Capa padrão 2
               </label>
             </div>
-            <div class="grid-xs-3">
+            <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-lg">
               <label>
                 <img ng-src="/uploads/cover-default3.jpg" alt="Capa padrão 3" class="img">
                 <input type="radio" ng-model="event.image" value="cover-default3.jpg">
                 Capa padrão 3
               </label>
             </div>
-            <div class="grid-xs-3">
+            <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-lg">
               <label>
                 <img ng-src="/uploads/cover-default4.jpg" alt="Capa padrão 4" class="img">
                 <input type="radio" ng-model="event.image" value="cover-default4.jpg">
@@ -101,7 +101,7 @@
             </div>
           </div>
           <div class="grid-row margin-bottom-xl">
-            <div class="grid-xs-2 grid-xs-offset-10">
+            <div class="grid-lg-2 grid-lg-offset-10 grid-md-3 grid-md-offset-9  grid-sm-4 grid-sm-offset-8  grid-xs-6 grid-xs-offset-6">
               <button class="btn-lg btn-primary" ng-click="editEvent()">Salvar</button>
             </div>
           </div>

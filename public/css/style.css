@@ -62,3 +62,27 @@ body {
   cursor: not-allowed;
 }
 
+@media (max-width: 768px) {
+  #banner {
+    padding: 0;
+  }
+  #banner .grid-container {
+    padding: 0;
+  }
+  #banner .grid-row {
+    margin: 0;
+  }
+  #banner .grid-xs-12 {
+    padding: 0;
+  }
+  #banner .shadow-banner {
+    position: relative;
+    margin: 0;
+    background: none;
+  }
+  #banner .shadow-banner h1 {
+    padding: 0;
+    color: #C74A50 !important;
+  }
+}
+
