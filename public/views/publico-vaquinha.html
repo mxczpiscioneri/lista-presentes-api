@@ -1,0 +1,36 @@
+<!-- header -->
+<ng-include src="'views/inc_header.html'"></ng-include>
+<!-- banner -->
+<div id="banner" class="grid-container-fluid margin-top-xs">
+  <div class="grid-container">
+    <div class="grid-row">
+      <div class="grid-xs-12">
+        <a href="/{{event.slug}}" class="clear-decoration">
+          <img src="/uploads/{{event.image}}" class="img block" alt="Matheus e Marcela">
+          <div class="shadow-banner absolute position-bottom position-left position-right padding-sm margin-left-sm margin-right-sm">
+            <h1 class="text-xl text-white align-center clear-margin padding-top-xl">{{event.name}} &hearts; {{event.date | date:'dd/MM/yyyy'}}</h1>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- content -->
+<div class="grid-container margin-top-sm">
+  <!-- products -->
+  <div class="grid-row">
+    <div class="grid-xs-12">
+      <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
+        <form name="donation.form">
+          <div class="grid-row">
+            <div class="grid-xs-12">
+              <h2 class="text-lg text-default clear-margin">Vaquinha</h2>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<ng-include src="'views/inc_footer.html'"></ng-include>

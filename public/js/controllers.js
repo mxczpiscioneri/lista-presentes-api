@@ -643,3 +643,21 @@ app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventSer
       });
   }
 });
+
+app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService) {
+
+  var userId;
+
+  EventService.findByName($routeParams.slug)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.event = result.data.data.events[0];
+        userId = result.data.data._id;
+      } else {
+        $location.path("/404");
+      }
+    }, function(status, result) {
+      $location.path("/404");
+    });
+
+});

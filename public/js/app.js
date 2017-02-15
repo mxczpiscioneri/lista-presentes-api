@@ -78,6 +78,11 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       templateUrl: '/views/publico-confirmacao.html',
       controller: 'PublicConfirmationCtrl'
     })
+    .when('/:slug/vaquinha', {
+      pageTitle: 'Lista de Presentes',
+      templateUrl: '/views/publico-vaquinha.html',
+      controller: 'PublicDonationCtrl'
+    })
     .otherwise({
       redirectTo: '/404'
     });
