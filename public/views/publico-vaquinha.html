@@ -21,10 +21,53 @@
   <div class="grid-row">
     <div class="grid-xs-12">
       <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
-        <form name="donation.form">
-          <div class="grid-row">
+        <form name="donation.form" action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
+          <div class="grid-row margin-bottom-xl">
             <div class="grid-xs-12">
               <h2 class="text-lg text-default clear-margin">Vaquinha</h2>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-3">
+              <label class="inline-block align-center pointer">
+                <input type="radio" ng-model="donationValue" value="100.00">
+                <img src="/uploads/presente-cafe.jpg" alt="" class="img">
+                <span class="text-lg text-default">R$ 100,00</span>
+              </label>
+            </div>
+            <div class="grid-xs-3">
+              <label class="inline-block align-center pointer">
+                <input type="radio" ng-model="donationValue" value="150.00">
+                <img src="/uploads/presente-jantar.jpg" alt="" class="img">
+                <span class="text-lg text-default">R$ 150,00</span>
+              </label>
+            </div>
+            <div class="grid-xs-3">
+              <label class="inline-block align-center pointer">
+                <input type="radio" ng-model="donationValue" value="200.00">
+                <img src="/uploads/presente-hospedagem.jpg" alt="" class="img">
+                <span class="text-lg text-default">R$ 200,00</span>
+              </label>
+            </div>
+            <div class="grid-xs-3">
+              <label class="inline-block align-center pointer">
+                <input type="radio" ng-model="donationValue" value="500.00">
+                <img src="/uploads/presente-passagem.jpg" alt="" class="img">
+                <span class="text-lg text-default">R$ 500,00</span>
+              </label>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-md-2 grid-md-offset-10 grid-sm-3 grid-sm-offset-9 grid-xs-6 grid-xs-offset-6">
+              <input type="hidden" name="iot" value="button" />
+              <input name="currency" value="BRL" type="hidden">
+              <input name="receiverEmail" value="mxczpiscioneri@gmail.com" type="hidden">
+              <input name="itemId1" value="0001" type="hidden">
+              <input name="itemDescription1" value="Ajuda para os noivos Matheus e Marcela" type="hidden">
+              <input name="itemAmount1" ng-value="donationValue" type="hidden">
+              <input name="itemQuantity1" value="1" type="hidden">
+              <input name="itemWeight1" value="1" type="hidden">
+              <input type="submit" class="btn-lg btn-primary" name="submit" alt="Pagar com PagSeguro" value="Pagar" />
             </div>
           </div>
         </form>
@@ -32,5 +75,6 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
 <!-- footer -->
 <ng-include src="'views/inc_footer.html'"></ng-include>
