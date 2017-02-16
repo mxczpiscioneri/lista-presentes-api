@@ -6,7 +6,7 @@
     <div class="grid-row">
       <div class="grid-xs-12">
         <a href="/{{event.slug}}" class="clear-decoration">
-          <img src="/uploads/{{event.image}}" class="img block" alt="Matheus e Marcela">
+          <img src="/uploads/{{event.image}}" class="img block" alt="{{event.name}}">
           <div class="shadow-banner absolute position-bottom position-left position-right padding-sm margin-left-sm margin-right-sm">
             <h1 class="text-xl text-white align-center clear-margin padding-top-xl">{{event.name}} &hearts; {{event.date | date:'dd/MM/yyyy'}}</h1>
           </div>
@@ -59,15 +59,16 @@
           </div>
           <div class="grid-row margin-bottom-xl">
             <div class="grid-md-2 grid-md-offset-10 grid-sm-3 grid-sm-offset-9 grid-xs-6 grid-xs-offset-6">
-              <input type="hidden" name="iot" value="button" />
+              <input name="iot" value="button" type="hidden">
               <input name="currency" value="BRL" type="hidden">
               <input name="receiverEmail" value="mxczpiscioneri@gmail.com" type="hidden">
+              <input name="reference" value="{{event.slug}}" type="hidden">
               <input name="itemId1" value="0001" type="hidden">
               <input name="itemDescription1" value="Ajuda para os noivos Matheus e Marcela" type="hidden">
               <input name="itemAmount1" ng-value="donationValue" type="hidden">
               <input name="itemQuantity1" value="1" type="hidden">
               <input name="itemWeight1" value="1" type="hidden">
-              <input type="submit" class="btn-lg btn-primary" name="submit" alt="Pagar com PagSeguro" value="Pagar" />
+              <input name="submit" value="Pagar" type="submit" class="btn-lg btn-primary" alt="Pagar com PagSeguro">
             </div>
           </div>
         </form>
