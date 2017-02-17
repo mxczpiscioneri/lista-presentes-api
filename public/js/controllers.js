@@ -661,3 +661,7 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
     });
 
 });
+
+app.controller('HomeCtrl', function($scope, $routeParams, EventService) {
+
+});

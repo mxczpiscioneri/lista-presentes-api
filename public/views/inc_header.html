@@ -5,7 +5,8 @@
         <h1 class="text-lg align-center">
           <a href="/" class="text-white clear-decoration"><img src="/img/icon-lista-de-presentes.png" class="align-top margin-right-sm" alt="LISTA DE PRESENTES">LISTA DE PRESENTES</a>
         </h1>
-        <small ng-show="user" class="text-xs text-white absolute position-top position-right margin-top-xl margin-right-lg">Olá {{user.name}}! <a href="/logout" class="text-white">(Sair)</a></small>
+        <small ng-show="user" class="user-header text-xs text-white margin-top-xl margin-right-lg">Olá {{user.name}}! <a href="/logout" class="text-white">(Sair)</a></small>
+        <small ng-hide="user" class="user-header text-xs text-white margin-top-xl margin-right-lg"><a href="/login" class="text-white">Gerenciar minha lista</a></small>
       </div>
     </div>
   </div>

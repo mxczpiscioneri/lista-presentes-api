@@ -1,9 +1,10 @@
-body {
-  font-family: 'Open Sans', sans-serif;
+html {
+  height: 100%;
 }
 
-.box-shadow {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+body {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .clear-decoration {
@@ -12,6 +13,22 @@ body {
 
 .field {
   outline: none;
+}
+
+.alert.success {
+  background-color: #2ecc71 !important;
+}
+
+.alert.error {
+  background-color: #FFBEB9 !important;
+}
+
+.cursor-disabled {
+  cursor: not-allowed;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .shadow-banner {
@@ -26,40 +43,20 @@ body {
   background-size: cover;
 }
 
-.z-index-xl {
-  z-index: 6;
+.user-header {
+  display: block;
+  text-align: center;
+  margin: 20px 0 10px 0;
 }
 
-.z-index-lg {
-  z-index: 5;
+.banner-home {
+  background: url("/img/home-bg.jpg") no-repeat center 0;
+  background-size: cover;
 }
 
-.z-index-md {
-  z-index: 3;
-}
-
-.z-index-sm {
-  z-index: 0;
-}
-
-.z-index-xs {
-  z-index: -4;
-}
-
-.z-index-xxs {
-  z-index: -9;
-}
-
-.alert.success {
-  background-color: #2ecc71 !important;
-}
-
-.alert.error {
-  background-color: #FFBEB9 !important;
-}
-
-.cursor-disabled {
-  cursor: not-allowed;
+.banner-home .banner-home-content {
+  height: 780px;
+  padding-top: 300px;
 }
 
 @media (max-width: 768px) {
@@ -83,6 +80,14 @@ body {
   #banner .shadow-banner h1 {
     padding: 0;
     color: #C74A50 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .user-header {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 

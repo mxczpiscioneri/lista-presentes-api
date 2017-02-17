@@ -8,6 +8,11 @@ var LOCAL_ID_EVENT = "IdEventListaPresentes"
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 
   $routeProvider
+    .when('/', {
+      pageTitle: 'Lista de Presentes',
+      templateUrl: '/views/home.html',
+      controller: 'HomeCtrl'
+    })
     .when('/dashboard', {
       pageTitle: 'Dashboard',
       menuActive: 'dashboard',
