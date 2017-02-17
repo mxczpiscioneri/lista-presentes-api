@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var ProductSchema = require('./product');
 var ConfirmationSchema = require('./confirmation');
+var DonationSchema = require('./confirmation');
 
 var EventSchema = new mongoose.Schema({
   name: String,
@@ -16,6 +17,7 @@ var EventSchema = new mongoose.Schema({
   image: String,
   products: [ProductSchema],
   confirmations: [ConfirmationSchema],
+  donations: [DonationSchema],
   created: {
     type: Date,
     default: Date.now

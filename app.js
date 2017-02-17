@@ -8,6 +8,7 @@ var routeAuth = require('./routes/auth');
 var routeUser = require('./routes/user');
 var routeEvent = require('./routes/event');
 var routeProduct = require('./routes/product');
+var routeDonation = require('./routes/donation');
 var db = require('./extras/mongoose')(); // connect to database
 
 
@@ -56,6 +57,8 @@ app.get('/api/users/:user/products/bought', routeAuth.isAuthenticated, routeProd
 app.get('/api/users/:user/products/:id/buy/:bought', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
+
+app.post('/api/notification', routeDonation.notification);
 
 app.use('*', function(req, res, next) {
 	var indexFile = path.resolve(__dirname + '/public/index.html');
