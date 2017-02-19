@@ -1,10 +1,7 @@
 var mongoose = require('mongoose');
 
 var ProductSchema = new mongoose.Schema({
-  buscapeId: {
-    type: Number,
-    unique: true
-  },
+  buscapeId: Number,
   categoryId: Number,
   name: String,
   pricemin: Number,

@@ -67,10 +67,9 @@ exports.add = function(req, res) {
       res.status(500);
       return res.json({
         success: false,
-        message: 'That email address already exists.'
+        message: 'Duplicate email'
       });
     } else {
-      console.log('User saved successfully');
       res.json({
         success: true,
         message: "User added successfully"

@@ -180,7 +180,7 @@ exports.add = function(req, res) {
           res.status(500);
           return res.json({
             success: false,
-            message: 'Error occured:: ' + err
+            message: 'Error occured: ' + err
           });
         } else {
           res.json({
@@ -212,7 +212,7 @@ exports.update = function(req, res) {
           res.status(500);
           return res.json({
             success: false,
-            message: 'Error occured:: ' + err
+            message: 'Error occured: ' + err
           });
         } else {
           res.json({
@@ -248,7 +248,7 @@ exports.upload = function(req, res) {
       res.status(500);
       res.json({
         success: false,
-        message: err
+        message: 'Error occured: ' + err
       });
       return;
     }

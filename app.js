@@ -46,7 +46,7 @@ app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
 app.get('/api/events/:slug', routeEvent.findByName);
 app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findById);
 app.get('/api/users/:user/events/confirmations', routeAuth.isAuthenticated, routeEvent.confirmations);
-app.post('/api/users/:user/events/confirmation', routeAuth.isAuthenticated, routeEvent.confirmation);
+app.post('/api/users/:user/events/confirmation', routeEvent.confirmation);
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
 app.put('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.update);
 app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, routeEvent.upload);

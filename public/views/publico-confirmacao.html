@@ -16,8 +16,17 @@
   </div>
 </div>
 <!-- content -->
-<div class="grid-container margin-top-sm">
-  <!-- products -->
+<div class="grid-container margin-top-lg">
+  <!-- alert message -->
+  <div class="grid-row">
+    <div class="grid-xs-12">
+      <div class="alert text-white text-center margin-bottom-lg padding-lg" ng-class="message.type" ng-show="message.status" role="alert">
+        {{message.text}}
+        <span class="pull-right pointer" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></span>
+      </div>
+    </div>
+  </div>
+  <!-- confirmation -->
   <div class="grid-row">
     <div class="grid-xs-12">
       <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
@@ -37,17 +46,17 @@
             <div class="grid-md-4 grid-xs-12 margin-bottom-xl">
               <label class="text-sm text-default">Confirmar:</label>
               <select ng-model="confirmation.accept" class="field text-field-lg select" required>
-                <option ng-selected="true" value="true">Sim</option>
+                <option value="true">Sim</option>
                 <option value="false">Não</option>
               </select>
             </div>
             <div class="grid-md-4 grid-xs-12 margin-bottom-xl">
               <label class="text-sm text-default">Número de adultos:</label>
-              <input id="adults" class="field text-field text-field-lg" type="number" mask="99" ng-model="confirmation.adults" required>
+              <input id="adults" class="field text-field text-field-lg" type="number" mask="9" ng-model="confirmation.adults" required>
             </div>
             <div class="grid-md-4 grid-xs-12 margin-bottom-xl">
               <label class="text-sm text-default">Número de crianças:</label>
-              <input id="children" class="field text-field text-field-lg" type="number" mask="99" ng-model="confirmation.children" required>
+              <input id="children" class="field text-field text-field-lg" type="number" mask="9" ng-model="confirmation.children" required>
             </div>
           </div>
           <div class="grid-row">

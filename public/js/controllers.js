@@ -114,11 +114,18 @@ app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserS
           };
         }
       }, function(status, data) {
-        $scope.message = {
-          'status': true,
-          'type': 'error',
-          'text': 'Erro!'
-        };
+        if (status.data.message == 'Duplicate email')
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': 'Este e-mail já existe, faça o login!'
+          };
+        else
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': 'Erro!'
+          };
       });
   };
 });
@@ -241,7 +248,6 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
       .then(function(resp) {
         if (resp.data.success) {
           $scope.event.date = new Date($scope.event.date).toLocaleDateString();
-          $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
           $scope.message = {
             'status': true,
             'type': 'success',
@@ -254,12 +260,14 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
             'text': resp.data.message
           };
         }
+        $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
       }, function(status, resp) {
         $scope.message = {
           'status': true,
           'type': 'error',
-          'text': 'Erro!'
+          'text': 'Este site já existe, escolha outro por favor!'
         };
+        $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
       });
   };
 
@@ -272,6 +280,22 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
     if (!input) return;
     // make lower case and trim
     var slug = input.toLowerCase().trim();
+
+    // Replace special characters
+    var mapAccentsHex = {
+      a: /[\xE0-\xE6]/g,
+      e: /[\xE8-\xEB]/g,
+      i: /[\xEC-\xEF]/g,
+      o: /[\xF2-\xF6]/g,
+      u: /[\xF9-\xFC]/g,
+      c: /\xE7/g,
+      n: /\xF1/g
+    };
+    for (var letter in mapAccentsHex) {
+      var regularExpression = mapAccentsHex[letter];
+      slug = slug.replace(regularExpression, letter);
+    }
+
     // replace invalid chars with spaces
     slug = slug.replace(/[^a-z0-9\s-]/g, ' ');
     // replace multiple spaces or hyphens with a single hyphen
@@ -591,7 +615,7 @@ app.controller('ConfirmationsCtrl', function($scope, $window, EventService) {
     });
 });
 
-app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventService) {
+app.controller('PublicConfirmationCtrl', function($scope, $window, $routeParams, EventService) {
 
   var userId;
 
@@ -609,6 +633,10 @@ app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventSer
 
   $scope.addConfirmation = function(confirmation) {
 
+    if (!$scope.confirmation.form.$valid) {
+      return;
+    }
+
     var ConfirmationNew = {
       name: confirmation.name,
       accept: confirmation.accept,
@@ -625,7 +653,17 @@ app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventSer
           $scope.message = {
             'status': true,
             'type': 'success',
-            'text': 'Produto adicionado com sucesso!'
+            'text': 'Confirmação enviada com sucesso!'
+          };
+          $scope.confirmation = {
+            name: '',
+            accept: '',
+            adults: '',
+            accept: '',
+            children: '',
+            email: '',
+            phone: '',
+            message: ''
           };
         } else {
           $scope.message = {
@@ -634,14 +672,25 @@ app.controller('PublicConfirmationCtrl', function($scope, $routeParams, EventSer
             'text': result.data.message
           };
         }
+        $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
       }, function(status, result) {
         $scope.message = {
           'status': true,
           'type': 'error',
           'text': 'Erro!'
         };
+        $window.scrollTo(0, angular.element(document.getElementById('header')).offsetTop);
       });
   }
+
+  // Close alert
+  $scope.closeAlert = function() {
+    $scope.message = {
+      'status': false,
+      'type': '',
+      'text': ''
+    };
+  };
 });
 
 app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService) {
@@ -662,6 +711,4 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
 
 });
 
-app.controller('HomeCtrl', function($scope, $routeParams, EventService) {
-
-});
+app.controller('HomeCtrl', function($scope, $routeParams, EventService) {});
