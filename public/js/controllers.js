@@ -718,7 +718,7 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
     var DonationNew = {
       name: donation.name,
       email: donation.email,
-      value: donation.donation.value
+      value: donation.value
     };
 
     EventService.donation(userId, DonationNew)
@@ -741,7 +741,6 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
         };
       });
   }
-
 });
 
 app.controller('HomeCtrl', function($scope, $routeParams, EventService) {});
