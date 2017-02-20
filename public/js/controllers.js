@@ -709,6 +709,39 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
       $location.path("/404");
     });
 
+  $scope.saveDonation = function(donation) {
+
+    if (!$scope.donation.form.$valid) {
+      return;
+    }
+
+    var DonationNew = {
+      name: donation.name,
+      email: donation.email,
+      value: donation.donation.value
+    };
+
+    EventService.donation(userId, DonationNew)
+      .then(function(result) {
+        if (result.data.success) {
+          document.getElementById("reference").value = result.data.donation._id;
+          document.getElementById("donationForm").submit();
+        } else {
+          $scope.message = {
+            'status': true,
+            'type': 'error',
+            'text': result.data.message
+          };
+        }
+      }, function(status, result) {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': 'Erro!'
+        };
+      });
+  }
+
 });
 
 app.controller('HomeCtrl', function($scope, $routeParams, EventService) {});

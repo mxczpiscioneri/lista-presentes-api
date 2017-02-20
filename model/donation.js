@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 
 var DonationSchema = new mongoose.Schema({
   name: String,
-  email: Boolean,
+  email: String,
+  value: Number,
   reference: String,
   code: String,
   status: Number,
-  grossamount: Number,
   xml: String,
   created: {
     type: Date,

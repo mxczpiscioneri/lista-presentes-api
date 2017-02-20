@@ -4,6 +4,7 @@ var multer = require('multer');
 var User = require('../model/user');
 var EventSchema = require('../model/event');
 var ConfirmationSchema = require('../model/confirmation');
+var DonationSchema = require('../model/donation');
 
 exports.findByName = function(req, res) {
   // find event
@@ -143,6 +144,47 @@ exports.confirmation = function(req, res) {
           res.json({
             success: true,
             message: "Confirmation added successfully"
+          });
+        }
+      });
+    }
+  });
+}
+
+exports.donation = function(req, res) {
+  // create donation
+  Donation = mongoose.model('Donation', DonationSchema);
+  var DonationNew = new Donation({
+    name: req.body.name,
+    email: req.body.email,
+    value: req.body.value
+  });
+
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      // add confirmation
+      user.events[0].donations.push(DonationNew);
+
+      // save user
+      user.save(function(err) {
+        if (err) {
+          res.status(500);
+          return res.json({
+            success: false,
+            message: 'Error occured: ' + err
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Donatios added successfully",
+            donation: DonationNew
           });
         }
       });
