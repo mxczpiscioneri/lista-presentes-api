@@ -152,13 +152,48 @@ exports.confirmation = function(req, res) {
   });
 }
 
+exports.donations = function(req, res) {
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      if (user) {
+        if (user.events[0]) {
+          res.json({
+            success: true,
+            data: user.events[0].donations
+          });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "User " + req.params.id + " not found"
+        });
+      }
+    }
+  });
+}
+
 exports.donation = function(req, res) {
   // create donation
   Donation = mongoose.model('Donation', DonationSchema);
   var DonationNew = new Donation({
     name: req.body.name,
     email: req.body.email,
-    value: req.body.value
+    amount: req.body.amount
   });
 
   // find user
@@ -196,7 +231,7 @@ exports.donation = function(req, res) {
           pag.product.add({
             'id': DonationNew._id,
             'description': 'Vaquinha ' + user.events[0].name,
-            'amount': DonationNew.value,
+            'amount': DonationNew.amount,
             'quantity': 1,
             'shippingCost': 1
           });

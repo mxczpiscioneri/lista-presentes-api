@@ -30,34 +30,34 @@
           <div class="grid-row">
             <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-xl">
               <label class="inline-block align-center pointer">
-                <input type="radio" ng-model="donation.value" value="100.00">
+                <input type="radio" ng-model="donation.amount" value="100.00">
                 <img src="/uploads/presente-cafe.jpg" alt="" class="img">
                 <span class="text-lg text-default block">R$ 100,00</span>
               </label>
             </div>
             <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-xl">
               <label class="inline-block align-center pointer">
-                <input type="radio" ng-model="donation.value" value="150.00">
+                <input type="radio" ng-model="donation.amount" value="150.00">
                 <img src="/uploads/presente-jantar.jpg" alt="" class="img">
                 <span class="text-lg text-default block">R$ 150,00</span>
               </label>
             </div>
             <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-xl">
               <label class="inline-block align-center pointer">
-                <input type="radio" ng-model="donation.value" value="200.00">
+                <input type="radio" ng-model="donation.amount" value="200.00">
                 <img src="/uploads/presente-hospedagem.jpg" alt="" class="img">
                 <span class="text-lg text-default block">R$ 200,00</span>
               </label>
             </div>
             <div class="grid-md-3 grid-sm-6 grid-xs-12 margin-bottom-xl">
               <label class="inline-block align-center pointer">
-                <input type="radio" ng-model="donation.value" value="500.00">
+                <input type="radio" ng-model="donation.amount" value="500.00">
                 <img src="/uploads/presente-passagem.jpg" alt="" class="img">
                 <span class="text-lg text-default block">R$ 500,00</span>
               </label>
             </div>
           </div>
-          <div ng-show="donation.value" class="grid-row margin-bottom-xl">
+          <div ng-show="donation.amount" class="grid-row margin-bottom-xl">
             <div class="grid-xs-6">
               <label class="text-sm text-default">Nome:</label>
               <input id="name" class="field text-field text-field-lg" type="text" ng-model="donation.name" required>

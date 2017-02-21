@@ -73,6 +73,9 @@ app.factory('EventService', function($http, Upload) {
     confirmation: function(userId, confirmation) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/events/confirmation', confirmation);
     },
+    donations: function(userId) {
+      return $http.get(API_ENDPOINT + '/users/' + userId + '/events/donations');
+    },
     donation: function(userId, donation) {
       return $http.post(API_ENDPOINT + '/users/' + userId + '/events/donation', donation);
     },

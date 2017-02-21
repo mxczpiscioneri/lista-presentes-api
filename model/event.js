@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var ProductSchema = require('./product');
 var ConfirmationSchema = require('./confirmation');
-var DonationSchema = require('./confirmation');
+var DonationSchema = require('./donation');
 
 var EventSchema = new mongoose.Schema({
   name: String,

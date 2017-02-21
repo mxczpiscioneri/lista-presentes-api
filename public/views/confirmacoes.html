@@ -15,16 +15,17 @@
         </div>
         <div class="grid-row margin-top-xl margin-bottom-xl">
           <div class="grid-xs-12">
-            <ul vertilize-container class="list">
+            <ul class="list">
               <li ng-repeat="item in confirmations" class="list-item margin-bottom-lg">
-                <div vertilize class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
+                <div class="bg-white bd-xs bd-solid bd-gray bd-radius-md padding-lg">
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Nome:</span> {{item.name}}</p>
-                  <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Confirmar:</span> {{item.accept}}</p>
+                  <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Confirmar:</span> {{item.accept ? 'Sim' : 'Não'}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Adultos:</span> {{item.adults}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Crianças:</span> {{item.children}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">E-mail:</span> {{item.email}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Telefone:</span> {{item.phone}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Mensagem:</span> {{item.message}}</p>
+                  <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Data:</span> {{item.created | date:'dd/MM/yyyy HH:mm:ss'}}</p>
                 </div>
               </li>
             </ul>

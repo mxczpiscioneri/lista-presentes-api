@@ -696,6 +696,25 @@ app.controller('PublicConfirmationCtrl', function($scope, $window, $routeParams,
 app.controller('DonationsCtrl', function($scope, $window, EventService) {
 
   var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+
+  EventService.donations(userId)
+    .then(function(result) {
+      if (result.data.success) {
+        $scope.donations = result.data.data;
+      } else {
+        $scope.message = {
+          'status': true,
+          'type': 'error',
+          'text': result.data.message
+        };
+      }
+    }, function(status, result) {
+      $scope.message = {
+        'status': true,
+        'type': 'error',
+        'text': 'Erro!'
+      };
+    });
 });
 
 app.controller('PublicDonationCtrl', function($scope, $routeParams, $location, EventService) {
@@ -727,7 +746,7 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, $location, E
     var DonationNew = {
       name: donation.name,
       email: donation.email,
-      value: donation.value
+      amount: donation.amount
     };
 
     EventService.donation(userId, DonationNew)
