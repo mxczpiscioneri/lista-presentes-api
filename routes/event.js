@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Types.ObjectId;
 var multer = require('multer');
+var pagseguro = require('pagseguro.js');
 var User = require('../model/user');
 var EventSchema = require('../model/event');
 var ConfirmationSchema = require('../model/confirmation');
@@ -181,10 +182,41 @@ exports.donation = function(req, res) {
             message: 'Error occured: ' + err
           });
         } else {
-          res.json({
-            success: true,
-            message: "Donatios added successfully",
-            donation: DonationNew
+          process.env['PAGSEGURO_TEST'] = true;
+
+          var pag = pagseguro({
+            'name': user.events[0].name,
+            'email': user.events[0].emailPagseguro,
+            'token': user.events[0].tokenPagseguro,
+            'reference': DonationNew._id,
+            'redirectURL': req.get('origin') + '/' + user.events[0].slug + '/vaquinha/',
+            'notificationURL': req.get('origin') + '/api/notification/'
+          });
+
+          pag.product.add({
+            'id': DonationNew._id,
+            'description': 'Vaquinha ' + user.events[0].name,
+            'amount': DonationNew.value,
+            'quantity': 1,
+            'shippingCost': 1
+          });
+
+          pag.shipping.set({
+            'type': 3,
+            'cost': 0
+          });
+
+          pag.checkout(function(err, resp, body) {
+            if (!err && !body.errors) {
+              res.json({
+                success: true,
+                message: "Donatios added successfully",
+                code: body.checkout.code
+              });
+            } else {
+              console.log(err);
+              console.log(body.errors);
+            }
           });
         }
       });

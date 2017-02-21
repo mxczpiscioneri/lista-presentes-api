@@ -55,6 +55,13 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       controller: 'ConfirmationsCtrl',
       requiredAuthentication: true
     })
+    .when('/vaquinha', {
+      pageTitle: 'Vaquinha',
+      menuActive: 'donations',
+      templateUrl: '/views/vaquinha.html',
+      controller: 'DonationsCtrl',
+      requiredAuthentication: true
+    })
     .when('/login', {
       pageTitle: 'Login',
       templateUrl: '/views/login.html',

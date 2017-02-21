@@ -97,6 +97,22 @@
               </label>
             </div>
           </div>
+          <hr>
+          <div class="grid-row">
+            <div class="grid-xs-12">
+              <h3 class="text-sm text-default">Vaquinha</h3>
+            </div>
+          </div>
+          <div class="grid-row margin-bottom-xl">
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">E-mail do Pagseguro:</label>
+              <input class="field text-field text-field-lg" type="text" ng-model="event.emailPagseguro">
+            </div>
+            <div class="grid-xs-6">
+              <label class="text-sm text-default">Token do Pagseguro:</label>
+              <input class="field text-field text-field-lg" type="text" ng-model="event.tokenPagseguro">
+            </div>
+          </div>
           <div class="grid-row margin-bottom-xl">
             <div class="grid-lg-2 grid-lg-offset-10 grid-md-3 grid-md-offset-9  grid-sm-4 grid-sm-offset-8  grid-xs-6 grid-xs-offset-6">
               <button class="btn-lg btn-primary" ng-click="editEvent()">Salvar</button>

@@ -693,7 +693,12 @@ app.controller('PublicConfirmationCtrl', function($scope, $window, $routeParams,
   };
 });
 
-app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService) {
+app.controller('DonationsCtrl', function($scope, $window, EventService) {
+
+  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+});
+
+app.controller('PublicDonationCtrl', function($scope, $routeParams, $location, EventService) {
 
   var userId;
 
@@ -702,6 +707,10 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
       if (result.data.success) {
         $scope.event = result.data.data.events[0];
         userId = result.data.data._id;
+
+        if (!result.data.data.events[0].emailPagseguro || !result.data.data.events[0].tokenPagseguro) {
+          $location.path('/' + $routeParams.slug);
+        }
       } else {
         $location.path("/404");
       }
@@ -724,8 +733,19 @@ app.controller('PublicDonationCtrl', function($scope, $routeParams, EventService
     EventService.donation(userId, DonationNew)
       .then(function(result) {
         if (result.data.success) {
-          document.getElementById("reference").value = result.data.donation._id;
-          document.getElementById("donationForm").submit();
+          var isOpenLightbox = PagSeguroLightbox({
+            code: result.data.code
+          }, {
+            success: function(transactionCode) {
+              console.log("success - " + transactionCode);
+            },
+            abort: function() {
+              console.log("abort");
+            }
+          });
+          if (!isOpenLightbox) {
+            location.href = "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" + code;
+          }
         } else {
           $scope.message = {
             'status': true,

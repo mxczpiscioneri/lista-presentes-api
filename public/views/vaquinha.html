@@ -1,0 +1,28 @@
+<!-- header -->
+<ng-include src="'views/inc_header.html'"></ng-include>
+<!-- main -->
+<div class="grid-container margin-top-xl">
+  <div class="grid-row">
+    <!-- alert message -->
+    <div class="grid-xs-12">
+      <div class="alert text-white text-center margin-bottom-lg padding-lg" ng-class="message.type" ng-show="message.status" role="alert">
+        {{message.text}}
+        <span class="pull-right pointer" ng-click="closeAlert()"><span aria-hidden="true">&times;</span></span>
+      </div>
+    </div>
+    <!-- menu -->
+    <ng-include src="'views/inc_sidebar.html'"></ng-include>
+    <!-- content -->
+    <div class="grid-md-9 grid-xs-12">
+      <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
+        <div class="grid-row">
+          <div class="grid-xs-12">
+            <h2 class="text-lg text-default clear-margin">Vaquinha</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<ng-include src="'views/inc_footer.html'"></ng-include>

@@ -18,6 +18,8 @@ var EventSchema = new mongoose.Schema({
   products: [ProductSchema],
   confirmations: [ConfirmationSchema],
   donations: [DonationSchema],
+  emailPagseguro: String,
+  tokenPagseguro: String,
   created: {
     type: Date,
     default: Date.now

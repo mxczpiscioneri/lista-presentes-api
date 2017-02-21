@@ -21,7 +21,7 @@
   <div class="grid-row">
     <div class="grid-xs-12">
       <div class="bg-white box-shadow padding-top-md padding-right-xl padding-bottom-md padding-left-xl">
-        <form id="donationForm" name="donation.form" action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
+        <form id="donationForm" name="donation.form">
           <div class="grid-row margin-bottom-xl">
             <div class="grid-xs-12">
               <h2 class="text-lg text-default clear-margin">Vaquinha</h2>
@@ -69,15 +69,6 @@
           </div>
           <div class="grid-row margin-bottom-xl">
             <div class="grid-md-2 grid-md-offset-10 grid-sm-3 grid-sm-offset-9 grid-xs-6 grid-xs-offset-6">
-              <input name="iot" value="button" type="hidden">
-              <input name="currency" value="BRL" type="hidden">
-              <input name="receiverEmail" value="mxczpiscioneri@gmail.com" type="hidden">
-              <input id="reference" name="reference" value="{{event.slug}}" type="hidden">
-              <input name="itemId1" value="0001" type="hidden">
-              <input name="itemDescription1" value="Ajuda para os noivos Matheus e Marcela" type="hidden">
-              <input name="itemAmount1" ng-value="donation.value" type="hidden">
-              <input name="itemQuantity1" value="1" type="hidden">
-              <input name="itemWeight1" value="1" type="hidden">
               <button class="btn-lg btn-primary" ng-click="saveDonation(donation)">Pagar</button>
             </div>
           </div>
