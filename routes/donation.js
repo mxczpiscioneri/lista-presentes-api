@@ -17,7 +17,7 @@ exports.notification = function(req, res) {
     } else {
       if (user) {
         // Generate URL notification
-        var uri = "https://ws.pagseguro.uol.com.br/v3/transactions/notifications/" + req.body.notificationCode + "?email=" + user.events[0].emailPagseguro + "&token=" + user.events[0].tokenPagseguro;
+        var uri = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/" + req.body.notificationCode + "?email=" + user.events[0].emailPagseguro + "&token=" + user.events[0].tokenPagseguro;
 
         // Get xml transaction
         request(uri, function(error, response, body) {

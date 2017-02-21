@@ -218,6 +218,8 @@ exports.donation = function(req, res) {
           });
         } else {
 
+          process.env['PAGSEGURO_TEST'] = true;
+
           var pag = pagseguro({
             'name': user.events[0].name,
             'email': user.events[0].emailPagseguro,
