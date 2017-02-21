@@ -217,15 +217,14 @@ exports.donation = function(req, res) {
             message: 'Error occured: ' + err
           });
         } else {
-          process.env['PAGSEGURO_TEST'] = true;
 
           var pag = pagseguro({
             'name': user.events[0].name,
             'email': user.events[0].emailPagseguro,
             'token': user.events[0].tokenPagseguro,
-            'reference': DonationNew._id,
+            'reference': user._id + '|@|' + DonationNew._id,
             'redirectURL': req.get('origin') + '/' + user.events[0].slug + '/vaquinha/',
-            'notificationURL': req.get('origin') + '/api/notification/'
+            'notificationURL': req.get('origin') + '/api/notification/' + user.events[0]._id + '/'
           });
 
           pag.product.add({

@@ -60,7 +60,7 @@ app.get('/api/users/:user/products/:id/buy/:bought', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 
-app.post('/api/notification', routeDonation.notification);
+app.post('/api/notification/:id', routeDonation.notification);
 
 app.use('*', function(req, res, next) {
 	var indexFile = path.resolve(__dirname + '/public/index.html');

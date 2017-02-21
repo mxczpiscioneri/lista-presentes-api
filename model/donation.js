@@ -5,9 +5,8 @@ var DonationSchema = new mongoose.Schema({
   email: String,
   amount: Number,
   reference: String,
-  code: String,
   transaction: String,
-  status: Number,
+  status: String,
   xml: String,
   created: {
     type: Date,
