@@ -19,12 +19,10 @@ app.factory('TokenInterceptor', function($q, $window, $location) {
 
     /* Revoke client authentication if 401 is received */
     responseError: function(rejection) {
-      if (rejection != null && rejection.status === 401 && ($window.localStorage.getItem(LOCAL_TOKEN_KEY))) {
-        $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-        $window.localStorage.removeItem(LOCAL_ID_USER)
-        $location.path("/login");
+      if (rejection.status === 401) {
+        $location.path('/login');
+        return $q.reject(rejection);
       }
-
       return $q.reject(rejection);
     }
   };
