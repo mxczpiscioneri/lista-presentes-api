@@ -12,6 +12,9 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
     password: ''
   };
 
+  $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+  $window.localStorage.removeItem(LOCAL_ID_USER);
+
   // Close alert
   $scope.closeAlert = function() {
     $scope.message = {
@@ -44,16 +47,6 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
         };
       });
   };
-
-  // Load Token and redirect to dashboard
-  function loadUserCredentials() {
-    var token = $window.localStorage.getItem(LOCAL_TOKEN_KEY);
-    if (token) {
-      $location.path("/dashboard");
-    }
-  }
-
-  // loadUserCredentials();
 });
 
 app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserService) {
@@ -70,6 +63,9 @@ app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserS
     email: '',
     password: ''
   };
+
+  $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+  $window.localStorage.removeItem(LOCAL_ID_USER);
 
   // Close alert
   $scope.closeAlert = function() {
