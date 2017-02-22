@@ -10,89 +10,89 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider
     .when('/', {
       pageTitle: 'Lista de Presentes',
-      templateUrl: 'views/home.html',
+      templateUrl: '../views/home.html',
       controller: 'HomeCtrl'
     })
     .when('/dashboard', {
       pageTitle: 'Dashboard',
       menuActive: 'dashboard',
-      templateUrl: 'views/dashboard.html',
+      templateUrl: '../views/dashboard.html',
       controller: 'DashboardCtrl',
       requiredAuthentication: true
     })
     .when('/evento', {
       pageTitle: 'Meu evento',
       menuActive: 'event',
-      templateUrl: 'views/evento.html',
+      templateUrl: '../views/evento.html',
       controller: 'EventCtrl',
       requiredAuthentication: true
     })
     .when('/lista-presentes', {
       pageTitle: 'Lista de Presentes',
       menuActive: 'presents',
-      templateUrl: 'views/lista-presentes.html',
+      templateUrl: '../views/lista-presentes.html',
       controller: 'PresentsCtrl',
       requiredAuthentication: true
     })
     .when('/minha-lista', {
       pageTitle: 'Minha Lista de Presentes',
       menuActive: 'myList',
-      templateUrl: 'views/minha-lista.html',
+      templateUrl: '../views/minha-lista.html',
       controller: 'MyListCtrl',
       requiredAuthentication: true
     })
     .when('/meus-presentes', {
       pageTitle: 'Meus Presentes',
       menuActive: 'myPresents',
-      templateUrl: 'views/meus-presentes.html',
+      templateUrl: '../views/meus-presentes.html',
       controller: 'MyPresentsCtrl',
       requiredAuthentication: true
     })
     .when('/confirmacoes', {
       pageTitle: 'Confirmações de Presença',
       menuActive: 'confirmations',
-      templateUrl: 'views/confirmacoes.html',
+      templateUrl: '../views/confirmacoes.html',
       controller: 'ConfirmationsCtrl',
       requiredAuthentication: true
     })
     .when('/vaquinha', {
       pageTitle: 'Vaquinha',
       menuActive: 'donations',
-      templateUrl: 'views/vaquinha.html',
+      templateUrl: '../views/vaquinha.html',
       controller: 'DonationsCtrl',
       requiredAuthentication: true
     })
     .when('/login', {
       pageTitle: 'Login',
-      templateUrl: 'views/login.html',
+      templateUrl: '../views/login.html',
       controller: 'LoginCtrl'
     })
     .when('/cadastrar', {
       pageTitle: 'Cadastrar',
-      templateUrl: 'views/cadastrar.html',
+      templateUrl: '../views/cadastrar.html',
       controller: 'RegisterCtrl'
     })
     .when('/logout', {
-      templateUrl: 'views/login.html',
+      templateUrl: '../views/login.html',
       controller: 'LogoutCtrl'
     })
     .when('/404', {
       pageTitle: 'Página não encontrada',
-      templateUrl: 'views/404.html'
+      templateUrl: '../views/404.html'
     })
     .when('/:slug', {
       pageTitle: 'Lista de Presentes',
-      templateUrl: 'views/publico.html',
+      templateUrl: '../views/publico.html',
       controller: 'PublicCtrl'
     })
     .when('/:slug/confirmacao', {
       pageTitle: 'Lista de Presentes',
-      templateUrl: 'views/publico-confirmacao.html',
+      templateUrl: '../views/publico-confirmacao.html',
       controller: 'PublicConfirmationCtrl'
     })
     .when('/:slug/vaquinha', {
       pageTitle: 'Lista de Presentes',
-      templateUrl: 'views/publico-vaquinha.html',
+      templateUrl: '../views/publico-vaquinha.html',
       controller: 'PublicDonationCtrl'
     })
     .otherwise({
