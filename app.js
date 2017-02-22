@@ -13,7 +13,7 @@ var db = require('./extras/mongoose')(); // connect to database
 
 
 // Config
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({
 	extended: true
