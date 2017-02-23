@@ -1,9 +1,9 @@
-app.factory('TokenInterceptor', function($q, $localStorage, $location) {
+app.factory('TokenInterceptor', function($q, $sessionStorage, $location) {
   return {
     request: function(config) {
       config.headers = config.headers || {};
-      if ($localStorage.token) {
-        config.headers['x-access-token'] = $localStorage.token;
+      if ($sessionStorage.token) {
+        config.headers['x-access-token'] = $sessionStorage.token;
       }
       return config;
     },
