@@ -1,27 +1,15 @@
-app.factory('TokenInterceptor', function($q, $window, $location) {
+app.factory('TokenInterceptor', function($q, $localStorage, $location) {
   return {
     request: function(config) {
       config.headers = config.headers || {};
-      if ($window.localStorage.getItem(LOCAL_TOKEN_KEY)) {
-        config.headers['x-access-token'] = $window.localStorage.getItem(LOCAL_TOKEN_KEY);
+      if ($localStorage.token) {
+        config.headers['x-access-token'] = $localStorage.token;
       }
       return config;
     },
-
-    requestError: function(rejection) {
-      return $q.reject(rejection);
-    },
-
-    /* Set Authentication.isAuthenticated to true if 200 received */
-    response: function(response) {
-      return response || $q.when(response);
-    },
-
-    /* Revoke client authentication if 401 is received */
     responseError: function(rejection) {
-      if (rejection.status === 401) {
+      if (rejection.status === 401 || rejection.status === 403) {
         $location.path('/login');
-        return $q.reject(rejection);
       }
       return $q.reject(rejection);
     }

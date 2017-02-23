@@ -1,9 +1,6 @@
-var app = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'angular.vertilize', 'ngMask']);
+var app = angular.module('myApp', ['ngRoute', 'ngStorage', 'ngFileUpload', 'angular.vertilize', 'ngMask']);
 
 var API_ENDPOINT = "/api";
-var LOCAL_TOKEN_KEY = "TokenListaPresentes";
-var LOCAL_ID_USER = "IdUserListaPresentes";
-var LOCAL_ID_EVENT = "IdEventListaPresentes"
 
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 
@@ -17,50 +14,43 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
       pageTitle: 'Dashboard',
       menuActive: 'dashboard',
       templateUrl: '/views/dashboard.html',
-      controller: 'DashboardCtrl',
-      requiredAuthentication: true
+      controller: 'DashboardCtrl'
     })
     .when('/evento', {
       pageTitle: 'Meu evento',
       menuActive: 'event',
       templateUrl: '/views/evento.html',
-      controller: 'EventCtrl',
-      requiredAuthentication: true
+      controller: 'EventCtrl'
     })
     .when('/lista-presentes', {
       pageTitle: 'Lista de Presentes',
       menuActive: 'presents',
       templateUrl: '/views/lista-presentes.html',
-      controller: 'PresentsCtrl',
-      requiredAuthentication: true
+      controller: 'PresentsCtrl'
     })
     .when('/minha-lista', {
       pageTitle: 'Minha Lista de Presentes',
       menuActive: 'myList',
       templateUrl: '/views/minha-lista.html',
-      controller: 'MyListCtrl',
-      requiredAuthentication: true
+      controller: 'MyListCtrl'
     })
     .when('/meus-presentes', {
       pageTitle: 'Meus Presentes',
       menuActive: 'myPresents',
       templateUrl: '/views/meus-presentes.html',
-      controller: 'MyPresentsCtrl',
-      requiredAuthentication: true
+      controller: 'MyPresentsCtrl'
     })
     .when('/confirmacoes', {
       pageTitle: 'Confirmações de Presença',
       menuActive: 'confirmations',
       templateUrl: '/views/confirmacoes.html',
-      controller: 'ConfirmationsCtrl',
-      requiredAuthentication: true
+      controller: 'ConfirmationsCtrl'
     })
     .when('/vaquinha', {
       pageTitle: 'Vaquinha',
       menuActive: 'donations',
       templateUrl: '/views/vaquinha.html',
-      controller: 'DonationsCtrl',
-      requiredAuthentication: true
+      controller: 'DonationsCtrl'
     })
     .when('/login', {
       pageTitle: 'Login',
@@ -106,12 +96,6 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 });
 
 app.run(function($rootScope, $route, $location, $window) {
-  $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-    if (nextRoute.requiredAuthentication && !$window.localStorage.getItem(LOCAL_TOKEN_KEY)) {
-      $location.path("/login");
-    }
-  });
-
   $rootScope.$on('$routeChangeSuccess', function() {
     // track pageview on state change
     $window.ga('send', 'pageview', $location.path());

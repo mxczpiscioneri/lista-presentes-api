@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $location, $window, UserService) {
+app.controller('LoginCtrl', function($scope, $http, $location, $localStorage, UserService) {
 
   // Start variables
   $scope.message = {
@@ -12,8 +12,8 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
     password: ''
   };
 
-  $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-  $window.localStorage.removeItem(LOCAL_ID_USER);
+  delete $localStorage.user;
+  delete $localStorage.token;
 
   // Close alert
   $scope.closeAlert = function() {
@@ -29,8 +29,8 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
     UserService.login($scope.user)
       .then(function(data) {
         if (data.data.success) {
-          $window.localStorage.setItem(LOCAL_ID_USER, data.data.user);
-          $window.localStorage.setItem(LOCAL_TOKEN_KEY, data.data.token);
+          $localStorage.user = data.data.user;
+          $localStorage.token = data.data.token;
           $location.path("/dashboard");
         } else {
           $scope.message = {
@@ -49,7 +49,7 @@ app.controller('LoginCtrl', function($scope, $http, $location, $window, UserServ
   };
 });
 
-app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserService) {
+app.controller('RegisterCtrl', function($scope, $http, $location, $localStorage, UserService) {
 
   // Start variables
   $scope.message = {
@@ -64,8 +64,8 @@ app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserS
     password: ''
   };
 
-  $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-  $window.localStorage.removeItem(LOCAL_ID_USER);
+  delete $localStorage.user;
+  delete $localStorage.token;
 
   // Close alert
   $scope.closeAlert = function() {
@@ -85,8 +85,8 @@ app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserS
           UserService.login($scope.user)
             .then(function(data) {
               if (data.data.success) {
-                $window.localStorage.setItem(LOCAL_ID_USER, data.data.user);
-                $window.localStorage.setItem(LOCAL_TOKEN_KEY, data.data.token);
+                $localStorage.user = data.data.user;
+                $localStorage.token = data.data.token;
                 $location.path("/dashboard");
               } else {
                 $scope.message = {
@@ -126,15 +126,15 @@ app.controller('RegisterCtrl', function($scope, $http, $location, $window, UserS
   };
 });
 
-app.controller('LogoutCtrl', function($location, $window) {
-  $window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-  $window.localStorage.removeItem(LOCAL_ID_USER);
+app.controller('LogoutCtrl', function($location, $localStorage) {
+  delete $localStorage.user;
+  delete $localStorage.token;
   $location.path('/login');
 });
 
-app.controller('DashboardCtrl', function($scope, $location, $window, UserService) {
+app.controller('DashboardCtrl', function($scope, $location, $localStorage, UserService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   UserService.findById(userId)
     .then(function(result) {
@@ -175,9 +175,9 @@ app.controller('DashboardCtrl', function($scope, $location, $window, UserService
   }
 });
 
-app.controller('EventCtrl', function($scope, $window, UserService, EventService) {
+app.controller('EventCtrl', function($scope, $localStorage, $window, UserService, EventService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
   $scope.fileUploaded = false;
 
   EventService.findById(userId)
@@ -301,9 +301,9 @@ app.controller('EventCtrl', function($scope, $window, UserService, EventService)
   }
 });
 
-app.controller('PresentsCtrl', function($scope, $window, ProductService) {
+app.controller('PresentsCtrl', function($scope, $localStorage, $window, ProductService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
   $scope.page = 1;
   $scope.sort = 'rate';
 
@@ -464,9 +464,9 @@ app.controller('PresentsCtrl', function($scope, $window, ProductService) {
   });
 });
 
-app.controller('MyListCtrl', function($scope, $window, ProductService) {
+app.controller('MyListCtrl', function($scope, $localStorage, ProductService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   ProductService.findAll(userId)
     .then(function(result) {
@@ -516,9 +516,9 @@ app.controller('MyListCtrl', function($scope, $window, ProductService) {
   }
 });
 
-app.controller('MyPresentsCtrl', function($scope, $window, ProductService) {
+app.controller('MyPresentsCtrl', function($scope, $localStorage, ProductService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   ProductService.bought(userId)
     .then(function(result) {
@@ -540,9 +540,9 @@ app.controller('MyPresentsCtrl', function($scope, $window, ProductService) {
     });
 });
 
-app.controller('PublicCtrl', function($scope, $routeParams, $window, $location, EventService, ProductService) {
+app.controller('PublicCtrl', function($scope, $routeParams, $localStorage, $window, $location, EventService, ProductService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   EventService.findByName($routeParams.slug)
     .then(function(result) {
@@ -587,9 +587,9 @@ app.controller('PublicCtrl', function($scope, $routeParams, $window, $location, 
   }
 });
 
-app.controller('ConfirmationsCtrl', function($scope, $window, EventService) {
+app.controller('ConfirmationsCtrl', function($scope, $localStorage, EventService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   EventService.confirmations(userId)
     .then(function(result) {
@@ -689,9 +689,9 @@ app.controller('PublicConfirmationCtrl', function($scope, $window, $routeParams,
   };
 });
 
-app.controller('DonationsCtrl', function($scope, $window, EventService) {
+app.controller('DonationsCtrl', function($scope, $localStorage, EventService) {
 
-  var userId = $window.localStorage.getItem(LOCAL_ID_USER);
+  var userId = $localStorage.user;
 
   EventService.donations(userId)
     .then(function(result) {
