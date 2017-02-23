@@ -21,7 +21,7 @@
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Nome:</span> {{item.name}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">E-mail:</span> {{item.email}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Valor:</span> {{item.amount}}</p>
-                  <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Status:</span> {{item.status}}</p>
+                  <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Status:</span> {{item.status}} - {{getStatus(item.status)}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Transação:</span> {{item.transaction}}</p>
                   <p class="text-xs text-default margin-top-xs margin-bottom-sm"><span class="bold">Data:</span> {{item.created | date:'dd/MM/yyyy HH:mm:ss'}}</p>
                 </div>

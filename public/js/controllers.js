@@ -711,6 +711,36 @@ app.controller('DonationsCtrl', function($scope, $localStorage, EventService) {
         'text': 'Erro!'
       };
     });
+
+  $scope.getStatus = function(id) {
+    var status = '';
+    switch (id) {
+      case '1':
+        status = 'Aguardando pagamento';
+        break;
+      case '2':
+        status = 'Em análise';
+        break;
+      case '3':
+        status = 'Paga';
+        break;
+      case '4':
+        status = 'Disponível';
+        break;
+      case '5':
+        status = 'Em disputa';
+        break;
+      case '6':
+        status = 'Devolvida';
+        break;
+      case '7':
+        status = 'Cancelada';
+        break;
+      default:
+        status = id;
+    }
+    return status;
+  }
 });
 
 app.controller('PublicDonationCtrl', function($scope, $routeParams, $location, EventService) {
