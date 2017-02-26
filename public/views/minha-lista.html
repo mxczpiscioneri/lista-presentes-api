@@ -20,7 +20,7 @@
             <h2 class="text-lg text-default clear-margin">Minha lista de presentes</h2>
           </div>
         </div>
-        <div class="grid-row margin-top-xl">
+        <div ng-show="myList.length > 0" class="grid-row margin-top-xl">
           <form>
             <div class="grid-xs-12">
               <label for="filter-price" class="text-xs text-default margin-bottom-xs">Procurar produtos:</label>
@@ -44,6 +44,7 @@
               </div>
             </li>
           </ul>
+          <p ng-show="myList.length == 0" class="text-default text-sm">Nenhum produto foi selecionado...</p>
         </div>
       </div>
     </div>

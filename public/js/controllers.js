@@ -6,7 +6,7 @@ app.controller('LoginCtrl', function($scope, $http, $location, $sessionStorage, 
     type: '',
     text: ''
   };
-
+  PublicCtrl
   $scope.user = {
     email: '',
     password: ''
@@ -542,12 +542,13 @@ app.controller('MyPresentsCtrl', function($scope, $sessionStorage, ProductServic
 
 app.controller('PublicCtrl', function($scope, $routeParams, $sessionStorage, $window, $location, EventService, ProductService) {
 
-  var userId = $sessionStorage.user;
+  var userId;
 
   EventService.findByName($routeParams.slug)
     .then(function(result) {
       if (result.data.success) {
         $scope.event = result.data.data.events[0];
+        userId = result.data.data._id;
       } else {
         $location.path("/404");
       }
