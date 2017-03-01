@@ -6,7 +6,6 @@ app.controller('LoginCtrl', function($scope, $http, $location, $sessionStorage, 
     type: '',
     text: ''
   };
-  PublicCtrl
   $scope.user = {
     email: '',
     password: ''
