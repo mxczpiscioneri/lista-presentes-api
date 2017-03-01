@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute', 'ngStorage', 'ngFileUpload', 'angular.vertilize', 'ngMask']);
 
-var API_ENDPOINT = "/api";
+var API_ENDPOINT = "https://listadepresentes.herokuapp.com/api";
 
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
 
