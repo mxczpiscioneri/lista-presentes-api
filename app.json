@@ -1,7 +1,7 @@
 {
-  "name": "lista-presentes",
-  "description": "Lista de Presentes",
-  "repository": "https://github.com/mxczpiscioneri/lista-presentes",
+  "name": "lista-presentes-api",
+  "description": "Lista de Presentes - API",
+  "repository": "https://github.com/mxczpiscioneri/lista-presentes-api",
   "logo": "http://node-js-sample.heroku.com/node.svg",
   "keywords": ["lista", "presentes"],
   "image": "heroku/nodejs"

@@ -1,6 +1,6 @@
 {
-  "name": "lista-presentes",
-  "description": "Lista de Presentes",
+  "name": "lista-presentes-api",
+  "description": "Lista de Presentes - API",
   "version": "0.0.1",
   "main": "app.js",
   "engines": {
@@ -8,8 +8,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "sass": "node-sass --output-style compressed public/sass/acsset.scss > public/css/acsset.min.css && node-sass --output-style expanded public/sass/acsset.scss > public/css/acsset.css && node-sass --output-style expanded public/sass/style.scss > public/css/style.css",
-    "acsset:build": "npm run sass"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -25,13 +23,10 @@
     "request": "^2.79.0",
     "xml2js": "^0.4.17"
   },
-  "devDependencies": {
-    "node-sass": "^3.10.0"
-  },
   "author": "Matheus Piscioneri <mxczpiscioneri@gmail.com> (http://matheuspiscioneri.com.br)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mxczpiscioneri/lista-presentes.git"
+    "url": "git+https://github.com/mxczpiscioneri/lista-presentes-api.git"
   }
 }

@@ -14,8 +14,6 @@ var db = require('./extras/mongoose')(); // connect to database
 
 
 // Config
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -63,11 +61,6 @@ app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.ad
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 
 app.post('/api/notification/:id', routeDonation.notification);
-
-app.use('*', function(req, res, next) {
-	var indexFile = path.resolve(__dirname + '/public/index.html');
-	res.sendFile(indexFile);
-});
 
 
 // Server
