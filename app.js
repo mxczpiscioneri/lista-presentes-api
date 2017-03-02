@@ -61,6 +61,12 @@ app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProd
 app.post('/api/notification/:id', routeDonation.notification);
 
 
+// Show errors
+process.on('uncaughtException', function(err) {
+	console.log(err);
+});
+
+
 // Server
 app.listen(process.env.PORT || 8080, function() {
 	console.log('App listening on port 8080!');
