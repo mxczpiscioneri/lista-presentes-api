@@ -24,11 +24,11 @@ app.use(morgan('dev')); // use morgan to log requests to the console
 
 // CORS headers
 app.use(cors());
-app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With ,content-type, Authorization, x-access-token, Origin, Accept");
-  next();
+app.all('*', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+	res.header("Access-Control-Allow-Headers", "Content-type, Accept, X-Access-Token, X-Key");
+	next();
 });
 
 
