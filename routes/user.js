@@ -67,7 +67,8 @@ exports.add = function(req, res) {
       res.status(500);
       return res.json({
         success: false,
-        message: 'Duplicate email'
+        message: 'Duplicate email',
+        err: err
       });
     } else {
       res.json({
