@@ -52,7 +52,7 @@ exports.authenticate = function(req, res) {
         });
       } else {
         // if user is found and password is right create a token
-        var token = jwt.sign(user, process.env.SECRET, {
+        var token = jwt.sign(user._id, process.env.SECRET, {
           expiresIn: 60 * 60 // expires in 1 hour
         });
         res.json({
@@ -85,7 +85,7 @@ exports.refreshAuthentication = function(req, res) {
         }, function(err, user) {
           if (user) {
             // create a token
-            var token = jwt.sign(user, process.env.SECRET, {
+            var token = jwt.sign(user._id, process.env.SECRET, {
               expiresIn: 60 * 60 // expires in 1 hour
             });
             res.json({
