@@ -1,7 +1,5 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Types.ObjectId;
-var jwt = require('jsonwebtoken');
-var dotenv = require('dotenv').load();
 var User = require('../model/user');
 
 exports.findById = function(req, res) {
@@ -56,14 +54,11 @@ exports.add = function(req, res) {
     });
   }
 
-  // generate password hash
-  var password = jwt.sign(req.body.password, process.env.SECRET);
-
   // create user
   var UserNew = new User({
     name: req.body.name,
     email: req.body.email,
-    password: password
+    password: req.body.password
   });
 
   // save user
