@@ -43,8 +43,11 @@ exports.authenticate = function(req, res) {
         message: 'Authentication failed. User not found.'
       });
     } else if (user) {
+      // generate password hash
+      var password = jwt.sign(req.body.password, process.env.SECRET);
+
       // check if password matches
-      if (user.password != req.body.password) {
+      if (user.password != password) {
         res.status(401);
         res.json({
           success: false,
