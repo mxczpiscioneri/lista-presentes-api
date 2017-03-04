@@ -226,7 +226,7 @@ exports.donation = function(req, res) {
             'token': user.events[0].tokenPagseguro,
             'reference': user._id + '|@|' + DonationNew._id,
             'redirectURL': req.get('origin') + '/' + user.events[0].slug + '/vaquinha/',
-            'notificationURL': req.get('origin') + '/api/notification/' + user._id + '/'
+            'notificationURL': 'https://listadepresentes-api.herokuapp.com/api/notification/' + user._id + '/'
           });
 
           pag.product.add({
