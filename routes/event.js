@@ -313,21 +313,43 @@ exports.update = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
-      // add event in user
-      user.events[0] = req.body;
-
-      // save event
-      user.save(function(err) {
+      // Valid slug
+      User.find({}, function(err, users) {
         if (err) {
           res.status(500);
-          return res.json({
+          res.json({
             success: false,
-            message: 'Error occured: ' + err
+            message: "Error occured: " + err
           });
         } else {
-          res.json({
-            success: true,
-            message: "Event updated successfully"
+          users.forEach(function(user) {
+            if (user.events[0].slug == req.body.slug) {
+              console.log("FALSE - user: ");
+              res.status(409);
+              return res.json({
+                success: false,
+                message: 'Duplicate slug'
+              });
+            }
+          });
+
+          // add event in user
+          user.events[0] = req.body;
+
+          // save event
+          user.save(function(err) {
+            if (err) {
+              res.status(500);
+              return res.json({
+                success: false,
+                message: 'Error occured: ' + err
+              });
+            } else {
+              res.json({
+                success: true,
+                message: "Event updated successfully"
+              });
+            }
           });
         }
       });
