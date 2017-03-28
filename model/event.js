@@ -6,6 +6,7 @@ var DonationSchema = require('./donation');
 var EventSchema = new mongoose.Schema({
   name: String,
   slug: String,
+  password: String,
   date: String,
   time: String,
   place: String,

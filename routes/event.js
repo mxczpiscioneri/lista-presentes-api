@@ -23,10 +23,19 @@ exports.findByName = function(req, res) {
       });
     } else {
       if (event) {
-        res.json({
-          success: true,
-          data: event
-        });
+        if (event.events[0].password && event.events[0].password != req.params.password) {
+          res.json({
+            success: true,
+            data: event._id,
+            password: true
+          });
+        } else {
+          res.json({
+            success: true,
+            data: event,
+            password: false
+          });
+        }
       } else {
         res.status(404);
         res.json({
@@ -55,6 +64,48 @@ exports.findById = function(req, res) {
             success: true,
             data: user.events[0]
           });
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: "Event " + req.params.id + " not found"
+          });
+        }
+      } else {
+        res.status(404);
+        res.json({
+          success: false,
+          message: "User " + req.params.id + " not found"
+        });
+      }
+    }
+  });
+}
+
+exports.findByIdPassword = function(req, res) {
+  // find user
+  User.findById(new ObjectId(req.params.user), function(err, user) {
+
+    if (err) {
+      res.status(500);
+      res.json({
+        success: false,
+        message: "Error occured: " + err
+      });
+    } else {
+      if (user) {
+        if (user.events[0]) {
+          if (user.events[0].password == req.params.password) {
+            res.json({
+              success: true,
+              data: user.events[0]
+            });
+          } else {
+            res.json({
+              success: false,
+              message: 'Authentication failed. Wrong password.'
+            });
+          }
         } else {
           res.status(404);
           res.json({
@@ -249,9 +300,6 @@ exports.donation = function(req, res) {
                 message: "Donatios added successfully",
                 code: body.checkout.code
               });
-            } else {
-              console.log(err);
-              console.log(body.errors);
             }
           });
         }
@@ -323,8 +371,7 @@ exports.update = function(req, res) {
           });
         } else {
           users.forEach(function(user) {
-            if (user.events[0].slug == req.body.slug) {
-              console.log("FALSE - user: ");
+            if (user._id != req.params.user && user.events[0].slug == req.body.slug) {
               res.status(409);
               return res.json({
                 success: false,
