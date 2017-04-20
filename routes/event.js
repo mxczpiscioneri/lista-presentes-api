@@ -23,19 +23,11 @@ exports.findByName = function(req, res) {
       });
     } else {
       if (event) {
-        if (event.events[0].password && event.events[0].password != req.params.password) {
-          res.json({
-            success: true,
-            data: event._id,
-            password: true
-          });
-        } else {
-          res.json({
-            success: true,
-            data: event,
-            password: false
-          });
-        }
+        res.json({
+          success: true,
+          data: event,
+          password: event.events[0].password ? true : false
+        });
       } else {
         res.status(404);
         res.json({
@@ -64,48 +56,6 @@ exports.findById = function(req, res) {
             success: true,
             data: user.events[0]
           });
-        } else {
-          res.status(404);
-          res.json({
-            success: false,
-            message: "Event " + req.params.id + " not found"
-          });
-        }
-      } else {
-        res.status(404);
-        res.json({
-          success: false,
-          message: "User " + req.params.id + " not found"
-        });
-      }
-    }
-  });
-}
-
-exports.findByIdPassword = function(req, res) {
-  // find user
-  User.findById(new ObjectId(req.params.user), function(err, user) {
-
-    if (err) {
-      res.status(500);
-      res.json({
-        success: false,
-        message: "Error occured: " + err
-      });
-    } else {
-      if (user) {
-        if (user.events[0]) {
-          if (user.events[0].password == req.params.password) {
-            res.json({
-              success: true,
-              data: user.events[0]
-            });
-          } else {
-            res.json({
-              success: false,
-              message: 'Authentication failed. Wrong password.'
-            });
-          }
         } else {
           res.status(404);
           res.json({

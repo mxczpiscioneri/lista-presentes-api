@@ -41,9 +41,8 @@ app.post('/api/users', routeUser.add);
 app.put('/api/users/:id', routeAuth.isAuthenticated, routeUser.update);
 app.delete('/api/users/:id', routeAuth.isAuthenticated, routeUser.delete);
 
-app.get('/api/events/:slug/:password', routeEvent.findByName);
+app.get('/api/events/:slug', routeEvent.findByName);
 app.get('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.findById);
-app.get('/api/users/:user/events/password/:password', routeEvent.findByIdPassword);
 app.get('/api/users/:user/events/confirmations', routeAuth.isAuthenticated, routeEvent.confirmations);
 app.post('/api/users/:user/events/confirmation', routeEvent.confirmation);
 app.get('/api/users/:user/events/donations', routeAuth.isAuthenticated, routeEvent.donations);
@@ -55,7 +54,7 @@ app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, routeEvent
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);
 app.get('/api/users/:user/products/bought', routeAuth.isAuthenticated, routeProduct.bought);
-app.get('/api/users/:user/products/:id/buy/:bought', routeProduct.buy);
+app.get('/api/users/:user/products/:id/buy/:bought/password/:password', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
 

@@ -141,6 +141,14 @@ exports.buy = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
+      // check password
+      if (user.events[0].password && user.events[0].password != req.params.password) {
+        return res.json({
+          success: false,
+          message: 'Authentication failed. Wrong password.'
+        });
+      }
+
       // find product
       user.events[0].products.forEach(function(product) {
         if (product._id == req.params.id) {
