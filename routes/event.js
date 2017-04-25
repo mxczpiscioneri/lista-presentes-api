@@ -131,6 +131,14 @@ exports.confirmation = function(req, res) {
         message: "Error occured: " + err
       });
     } else {
+      // check password
+      if (user.events[0].password && user.events[0].password != req.params.password) {
+        return res.json({
+          success: false,
+          message: 'Authentication failed. Wrong password.'
+        });
+      }
+
       // add confirmation
       user.events[0].confirmations.push(ConfirmationNew);
 
