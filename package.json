@@ -20,6 +20,7 @@
     "multer": "^1.2.1",
     "pagseguro.js": "^0.2.0",
     "request": "^2.79.0",
+    "tinify": "^1.5.0",
     "xml2js": "^0.4.17"
   },
   "author": "Matheus Piscioneri <mxczpiscioneri@gmail.com> (http://matheuspiscioneri.com.br)",

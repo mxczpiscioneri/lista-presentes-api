@@ -1,7 +1,9 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
-var multer = require('multer');
+var tinify = require('tinify');
 var pagseguro = require('pagseguro.js');
+var dotenv = require('dotenv');
+dotenv.load();
 var User = require('../model/user');
 var EventSchema = require('../model/event');
 var ConfirmationSchema = require('../model/confirmation');
@@ -363,39 +365,21 @@ exports.update = function(req, res) {
 }
 
 exports.upload = function(req, res) {
-  //multers disk storage settings
-  var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, __dirname + '/../public/uploads/');
-    },
-    filename: function(req, file, cb) {
-      var datetimestamp = Date.now();
-      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
-    }
+  var nameImage = req.files.file.name.split('.')[0] + "-" + Date.now() + "." + req.files.file.name.split('.')[req.files.file.name.split('.').length - 1];
+
+  tinify.key = process.env.TINIFY_KEY;
+  var source = tinify.fromFile(req.files.file.path);
+  source.store({
+    service: "s3",
+    aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.S3_REGION,
+    path: process.env.S3_BUCKET + "/cover/" + nameImage
   });
 
-  //multer settings
-  var upload = multer({
-    storage: storage
-  }).single('file');
-
-  // Upload
-  upload(req, res, function(err) {
-    if (err) {
-      res.status(500);
-      res.json({
-        success: false,
-        message: 'Error occured: ' + err
-      });
-      return;
-    }
-    if (req.file) {
-      res.status(200);
-      res.json({
-        success: true,
-        data: req.file.filename
-      });
-    }
-    return;
+  res.status(200);
+  res.json({
+    success: true,
+    data: nameImage
   });
 }

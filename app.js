@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 var path = require('path');
 var morgan = require('morgan');
 
@@ -49,7 +51,7 @@ app.get('/api/users/:user/events/donations', routeAuth.isAuthenticated, routeEve
 app.post('/api/users/:user/events/donation', routeEvent.donation);
 app.post('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.add);
 app.put('/api/users/:user/events', routeAuth.isAuthenticated, routeEvent.update);
-app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, routeEvent.upload);
+app.post('/api/users/:user/events/upload', routeAuth.isAuthenticated, multipartMiddleware, routeEvent.upload);
 
 app.get('/api/products/search/:name/:page/:sort', routeAuth.isAuthenticated, routeProduct.search);
 app.get('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.findAll);
