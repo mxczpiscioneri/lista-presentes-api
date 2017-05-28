@@ -59,6 +59,7 @@ app.get('/api/users/:user/products/bought', routeAuth.isAuthenticated, routeProd
 app.get('/api/users/:user/products/:id/buy/:bought/password/:password', routeProduct.buy);
 app.post('/api/users/:user/products', routeAuth.isAuthenticated, routeProduct.add);
 app.delete('/api/users/:user/products/:id', routeAuth.isAuthenticated, routeProduct.delete);
+app.post('/api/users/:user/products/upload', routeAuth.isAuthenticated, multipartMiddleware, routeProduct.upload);
 
 app.post('/api/notification/:id', routeDonation.notification);
 

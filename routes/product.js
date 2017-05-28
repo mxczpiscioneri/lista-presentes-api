@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var ObjectId = mongoose.Types.ObjectId;
+var tinify = require('tinify');
 var User = require('../model/user');
 var ProductSchema = require('../model/product');
 var Lomadee = require("lomadee-api");
@@ -211,5 +212,25 @@ exports.bought = function(req, res) {
         });
       }
     }
+  });
+}
+
+exports.upload = function(req, res) {
+  var nameImage = req.files.file.name.split('.')[0] + "-" + Date.now() + "." + req.files.file.name.split('.')[req.files.file.name.split('.').length - 1];
+
+  tinify.key = process.env.TINIFY_KEY;
+  var source = tinify.fromFile(req.files.file.path);
+  source.store({
+    service: "s3",
+    aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.S3_REGION,
+    path: process.env.S3_BUCKET + "/product/" + nameImage
+  });
+
+  res.status(200);
+  res.json({
+    success: true,
+    data: nameImage
   });
 }
