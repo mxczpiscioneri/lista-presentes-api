@@ -56,7 +56,7 @@ exports.authenticate = function(req, res) {
       } else {
         // if user is found and password is right create a token
         var token = jwt.sign(user._id, process.env.SECRET, {
-          expiresIn: 60 * 60 // expires in 1 hour
+          expiresIn: 60 * 60 * 24 // expires in 1 day
         });
         res.json({
           success: true,
