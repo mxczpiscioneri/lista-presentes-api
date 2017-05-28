@@ -14,7 +14,7 @@ exports.search = function(req, res) {
     keyword: req.params.name,
     page: req.params.page,
     sort: req.params.sort,
-    results: 100
+    results: 20
   }, (err, results) => {
     res.json(results);
   });
